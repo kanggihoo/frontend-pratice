@@ -9,130 +9,146 @@
 </head>
 <!-- [바디 컨테이너] 연한 회색 배경(bg-gray-50)에 뷰포트 높이의 최소값을 화면 전체(min-h-screen)로 채워주세요. 내부 요소가 화면 가운데 위치하도록 Flexbox(flex, items-center, justify-center)를 적용하고, 약간의 패딩(p-6)과 기본 폰트(font-sans), 글자색(text-gray-800)을 지정합니다. -->
 
-<body class="">
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-6 text-gray-800 font-sans">
 
     <!-- [최대 너비 래퍼] 폭이 너무 넓어지지 않도록 최대 너비(max-w-6xl)를 지정하고, 너비를 100%(w-full)로 줍니다. -->
-    <div class="">
+    <div class="max-w-6xl w-full">
 
         <!-- [헤더 섹션] 텍스트를 중앙 정렬(text-center)하고 하단 마진(mb-16)을 줍니다. -->
-        <div class="">
+        <div class="text-center mb-16">
             <!-- [제목] 약간 큰 텍스트(text-3xl), 중간 크기 화면에서는 더 크게(md:text-5xl), 아주 굵은 폰트(font-extrabold), 진한 회색(text-gray-900), 자간 축소(tracking-tight)를 적용합니다. -->
-            <h2 class="">요금제 안내</h2>
+            <h2 class="text-3xl md:text-5xl md:font-extrabold md:text-gray-900 md:tracking-tighter">요금제 안내</h2>
             <!-- [설명] 위쪽 여백(mt-4), 기본보다 약간 큰 텍스트(text-lg), 회색 텍스트(text-gray-500), 최대 너비 설정(max-w-2xl) 후 블록을 가운데 정렬(mx-auto)합니다. -->
-            <p class="">팀과 비즈니스에 알맞은 최적의 플랜을 선택해보세요. 언제든 업그레이드하거나 취소할 수 있습니다.</p>
+            <p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto ">팀과 비즈니스에 알맞은 최적의 플랜을 선택해보세요. 언제든 업그레이드하거나 취소할 수
+                있습니다.</p>
         </div>
 
         <!-- [가격표 컨테이너 - Grid] 카드가 나란히 배치되도록 CSS Grid(grid)를 사용하세요. 기본은 1열(grid-cols-1)이지만, 중간 화면(md:) 이상에서는 3열(md:grid-cols-3)이 되도록 합니다. 카드 간격(gap-8)을 주고 세로축으로 가운데-상단 등을 맞추기 위해 items-center를 지정합니다. -->
-        <div class="">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-3 items-center">
 
             <!-- [베이직 플랜 카드] 하얀색 배경(bg-white), 둥근 모서리 크게(rounded-3xl), 부드러운 그림자(shadow-sm), 연한 테두리(border border-gray-200), 내부 패딩(p-8)을 줍니다. 마우스를 올렸을 때 그림자가 커지고(hover:shadow-lg) 자연스럽게 변하도록 트랜지션(transition-shadow duration-300)을 추가하세요. -->
-            <div class="">
-                <h3 class="">베이직</h3>
-                <p class="">개인 프로젝트와 소규모 팀을 위한 플랜</p>
+            <div
+                class="bg-white rounded-3xl shadow-sm border border-gray-200 p-8 hover:shadow-lg transition-shadow duration-300">
+                <h3 class="text-xl font-semibold text-gray-900">베이직</h3>
+                <p class="mt-2 text-sm text-gray-500">개인 프로젝트와 소규모 팀을 위한 플랜</p>
                 <!-- [가격 표시부] 위 여백(mt-6), 볼드체(font-bold), 텍스트의 베이스라인을 맞추는 Flex(flex items-baseline gap-1)를 적용합니다. -->
-                <div class="">
-                    <span class="">₩0</span>
-                    <span class="">/ 월</span>
+                <div class="mt-6 font-bold flex items-baseline gap-1">
+                    <span class="text-4xl">₩0</span>
+                    <span class="text-gray-500 text-sm font-medium">/ 월</span>
                 </div>
                 <!-- [기능 목록] 위 여백(mt-8), 각 li 요소들의 간격(space-y-4)을 줍니다. -->
-                <ul class="">
+                <ul class="mt08">
                     <!-- [기능 1] Flex를 사용해 아이콘과 텍스트를 옆으로 배치(flex items-center gap-3)합니다. -->
-                    <li class="">
+                    <li class="flex items-center gap-3">
                         <!-- [아이콘] 너비/높이(w-5 h-5), 보라색 색상(text-indigo-500) -->
-                        <svg class="" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
-                        <span class="">최대 3개 프로젝트</span>
+                        <span class="text-gray-600">최대 3개 프로젝트</span>
                     </li>
-                    <li class="">
-                        <svg class="" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
-                        <span class="">기본 분석 도구 제공</span>
+                        <span class="text-gray-600">기본 분석 도구 제공</span>
                     </li>
                 </ul>
                 <!-- [버튼] 위 여백(mt-10), 가로 전체(w-full), 아주 연한 보라색 배경(bg-indigo-50), 진한 보라색 글씨(text-indigo-700), 세미볼드(font-semibold), 상하 패딩(py-3), 둥근 모서리(rounded-xl)를 지정합니다. Hover 시 배경색을 약간 더 진하게(hover:bg-indigo-100) 하세요. -->
-                <button class="">무료로 시작하기</button>
+                <button
+                    class="mt-10 w-full bg-indigo-50 py-3 text-indigo-700 font-semibold rounded-xl hover:bg-indigo-100">무료로
+                    시작하기</button>
             </div>
 
             <!-- [프로 플랜 카드 (강조)] 진한 남색 배경(bg-indigo-900), 둥근 모서리(rounded-3xl), 깊은 그림자(shadow-2xl), 내부 패딩(p-8), 뱃지 위치를 위한 구조(relative)를 지정합니다. 흰색 텍스트(text-white)에, 스크린(md:)에서 Y축 위로 살짝 올라오게(md:-translate-y-4) transform을 설정합니다. -->
-            <div class="">
+            <div class="bg-indigo-900 rounded-3xl p-8 text-white relative md:-translate-y-4">
                 <!-- [Most Popular 뱃지 래퍼] 절대 위치(absolute), 상단 0, 우측 8단위(top-0 right-8). 카드의 상단 경계선에 걸치도록 Y축으로 -50% 이동(transform -translate-y-1/2)합니다. -->
-                <div class="">
+                <div class="absolute top-0 right-8 -translate-y-1/2">
                     <!-- [뱃지 스타일] 그라디언트 배경(bg-gradient-to-r from-pink-500 to-orange-400), 흰색 텍스트, 작은 폰트(text-xs), 볼드체(font-bold), 패딩(px-3 py-1), 완전 둥근 형태(rounded-full), 대문자(uppercase), 자간 증가(tracking-wide) -->
-                    <span class="">Most Popular</span>
+                    <span
+                        class="text-xs font-bold bg-gradient-to-r from-pink-500 to-orange-400 px-3 py-1 rounded-full uppercase tracking-wide">Most
+                        Popular</span>
                 </div>
-                <h3 class="">프로</h3>
-                <p class="">빠른 성장을 원하는 전문가와 팀</p>
-                <div class="">
+                <h3 class="text-xl font-semibold">프로</h3>
+                <p class="mt-2 text-sm text-indigo-200">빠른 성장을 원하는 전문가와 팀</p>
+                <div class="flex items-baseline mt-6 gap-1">
                     <!-- 가격 텍스트가 양팔 카드보다 더 크도록(text-5xl) 적용하세요. -->
-                    <span class="">₩29,000</span>
-                    <span class="">/ 월</span>
+                    <span class="text-5xl">₩29,000</span>
+                    <span class="text-indigo-200 text-sm font-medium">/ 월</span>
                 </div>
                 <!-- 아이콘 색상을 핑크색(text-pink-400)으로, 텍스트를 연한 남색(text-indigo-100)으로 맞춰주세요. -->
-                <ul class="">
-                    <li class="">
-                        <svg class="" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
-                            </path>
-                        </svg>
-                        <span class="">무제한 프로젝트</span>
+                <ul class="mt-8 gap-y-4"">
+                    <li class=" flex items-center gap-3">
+                    <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                        </path>
+                    </svg>
+                    <span class="text-indigo-100">무제한 프로젝트</span>
                     </li>
-                    <li class="">
-                        <svg class="" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
-                        <span class="">고급 분석 및 리포트</span>
+                        <span class="text-indigo-100">고급 분석 및 리포트</span>
                     </li>
-                    <li class="">
-                        <svg class="" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
-                        <span class="">우선 지원 서비스</span>
+                        <span class="text-indigo-100">우선 지원 서비스</span>
                     </li>
                 </ul>
                 <!-- [프로 버튼] 보라색 배경(bg-indigo-500), 흰색 글씨, 호버 시 더 진한 보라색(hover:bg-indigo-600), 약간의 그림자 추가(shadow-md), 트랜지션 추가. -->
-                <button class="">프로 플랜 선택하기</button>
+                <button
+                    class="mt-10 bg-indigo-500 text-white w-full py-3 px-4 rounded-xl font-semibold shadow-md hover:bg-indigo-600 transition duration-300">프로
+                    플랜
+                    선택하기</button>
             </div>
+
 
             <!-- [엔터프라이즈 플랜 카드] 베이직 카드와 동일하고 버튼 스타일만 조금 다릅니다. -->
-            <div class="">
-                <h3 class="">엔터프라이즈</h3>
-                <p class="">대규모 조직을 위한 맞춤형 솔루션</p>
-                <div class="">
-                    <span class="">맞춤형</span>
+            <div
+                class="bg-white rounded-3xl shadow-sm border border-gray-200 p-8 hover:shadow-lg transition-shadow duration-300">
+                <h3 class="text-xl font-semibold text-gray-900">엔터프라이즈</h3>
+                <p class="mt-2 text-sm text-gray-500">대규모 조직을 위한 맞춤형 솔루션</p>
+                <!-- [가격 표시부] 위 여백(mt-6), 볼드체(font-bold), 텍스트의 베이스라인을 맞추는 Flex(flex items-baseline gap-1)를 적용합니다. -->
+                <div class="mt-6 font-bold flex items-baseline gap-1">
+                    <span class="text-4xl">맞춤형</span>
                 </div>
-                <ul class="">
-                    <li class="">
-                        <svg class="" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- [기능 목록] 위 여백(mt-8), 각 li 요소들의 간격(space-y-4)을 줍니다. -->
+                <ul class="mt08">
+                    <!-- [기능 1] Flex를 사용해 아이콘과 텍스트를 옆으로 배치(flex items-center gap-3)합니다. -->
+                    <li class="flex items-center gap-3">
+                        <!-- [아이콘] 너비/높이(w-5 h-5), 보라색 색상(text-indigo-500) -->
+                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
-                        <span class="">커스텀 SLA 지원</span>
+                        <span class="text-gray-600">커스텀 SLA 지원</span>
                     </li>
-                    <li class="">
-                        <svg class="" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
-                        <span class="">전담 어카운트 매니저</span>
+                        <span class="text-gray-600">전담 어카운트 매니저</span>
                     </li>
-                    <li class="">
-                        <svg class="" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
-                        <span class="">보안 및 규정 준수 강화</span>
+                        <span class="text-gray-600">보안 및 규정 준수 강화</span>
                     </li>
                 </ul>
-                <!-- [엔터프라이즈 버튼] 하얀 배경(bg-white), 회색 테두리(border border-gray-300), 진한 회색 글씨(text-gray-700), 호버 시 연한 회색 배경(hover:bg-gray-50) -->
-                <button class="">도입 문의하기</button>
+                <!-- [버튼] 위 여백(mt-10), 가로 전체(w-full), 아주 연한 보라색 배경(bg-indigo-50), 진한 보라색 글씨(text-indigo-700), 세미볼드(font-semibold), 상하 패딩(py-3), 둥근 모서리(rounded-xl)를 지정합니다. Hover 시 배경색을 약간 더 진하게(hover:bg-indigo-100) 하세요. -->
+                <button
+                    class="mt-10 w-full bg-indigo-50 py-3 text-indigo-700 font-semibold rounded-xl hover:bg-indigo-100">무료로
+                    시작하기</button>
             </div>
-
         </div>
     </div>
 
