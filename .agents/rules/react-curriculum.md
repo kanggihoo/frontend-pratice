@@ -121,7 +121,7 @@ trigger: manual
 ## 진행 상태
 
 - [x] 회차 1 — JSX, Props, 리스트 렌더링, 이벤트
-- [ ] 회차 2 — useState 심화 + 컴포넌트 분리
+- [x] 회차 2 — useState 심화 + 컴포넌트 분리
 - [ ] 회차 3 — useEffect + API 호출
 - [ ] 회차 4 — useRef + 비제어 컴포넌트
 - [ ] 회차 5 — useContext + 전역 상태
