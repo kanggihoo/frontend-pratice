@@ -1,29 +1,36 @@
-// ─── [import] ────────────────────────────────────
-// TodoItem 컴포넌트를 import하세요.
-// 힌트: import TodoItem from "./TodoItem";
+import TodoItem from "./TodoItem";
 
 // ─── [Props 받기] ────────────────────────────────
 // - todos: 현재 필터링된 할 일 배열
 // - onToggleTodo: 완료 상태 토글 함수
 // - onDeleteTodo: 삭제 함수
 
-export default function TodoList() {
-  // ─── [빈 목록 처리] ───────────────────────────────
-  // todos.length === 0 이면 안내 문구를 먼저 반환하세요.
-  // 예: "표시할 할 일이 없습니다"
+export default function TodoList({ todos, onToggleTodo, onDeleteTodo }) {
+  if (todos.length === 0) {
+    return (
+      <section className="rounded-[28px] border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
+        <p className="text-5xl">🗂️</p>
+        <h2 className="mt-4 text-xl font-bold text-slate-900">
+          표시할 할 일이 없습니다
+        </h2>
+        <p className="mt-2 text-sm leading-6 text-slate-500">
+          현재 필터에 맞는 항목이 없어요. 새 할 일을 추가하거나 다른 필터를
+          선택해 보세요.
+        </p>
+      </section>
+    );
+  }
 
   return (
-    // ─── [리스트 렌더링] ─────────────────────────────
-    // todos.map((todo) => (
-    //   <TodoItem
-    //     key={todo.id}
-    //     todo={todo}
-    //     onToggleTodo={onToggleTodo}
-    //     onDeleteTodo={onDeleteTodo}
-    //   />
-    // ))
-    <section>
-      <p>TodoItem 목록을 여기에 렌더링하세요.</p>
+    <section className="space-y-4">
+      {todos.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onToggleTodo={onToggleTodo}
+          onDeleteTodo={onDeleteTodo}
+        />
+      ))}
     </section>
   );
 }
