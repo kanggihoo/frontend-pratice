@@ -63,3 +63,22 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows
 
 
+**/dist
+**/node_modules
+
+# Vite
+**/.vite
+
+# 환경 변수 (API 키 등 민감 정보)
+.env
+.env.local
+.env.*.local
+
+# 에디터
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# 로그
+*.log
+npm-debug.log*
