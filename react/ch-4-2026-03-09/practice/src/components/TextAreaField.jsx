@@ -1,31 +1,48 @@
 import { forwardRef } from "react";
 
-// ─── [forwardRef로 TextAreaField 컴포넌트 만들기] ──────
-// FormField와 동일한 패턴으로, textarea를 감싸는 컴포넌트입니다.
-// Props: label, name, placeholder, maxLength, error, onChange, onBlur, charCount
-// 두 번째 매개변수 ref는 textarea DOM 요소에 연결합니다.
 const TextAreaField = forwardRef(function TextAreaField(
   { label, name, placeholder, maxLength, error, onChange, onBlur, charCount },
-  ref
+  ref,
 ) {
-  // ─── [에러 상태 확인] ───────────────────────────────
-  // error prop이 존재하는지 Boolean으로 변환하세요.
-
-  // ─── [JSX 반환] ──────────────────────────────────────
-  // 아래 구조로 JSX를 반환하세요:
-  // 1. <div> 래퍼 (mb-4)
-  // 2.   <div> — label과 글자 수를 양쪽에 배치 (flex justify-between items-center mb-1)
-  //        - <label> htmlFor={name}, 텍스트: {label}
-  //        - {maxLength가 있을 때} <span> "{charCount}/{maxLength}" 표시
-  //          글자 수 초과 시 "text-red-500", 아니면 "text-gray-400"
-  // 3.   <textarea> — ref={ref}를 반드시 연결!
-  //        id={name}, name={name}, placeholder, rows={3}
-  //        onChange, onBlur 이벤트 핸들러 연결
-  //        Tailwind: FormField의 input과 유사 + "resize-none" 추가
-  // 4.   {hasError일 때} 에러 메시지 <p>
+  const hasError = Boolean(error);
   return (
-    <div>
-      {/* 여기에 label, 글자 수, textarea, 에러 메시지를 구현하세요 */}
+    <div className="mb-4">
+      <div className="flex justify-between items-center mb-1">
+        <label
+          htmlFor={name}
+          className="block text-sm font-semibold text-gray-700"
+        >
+          {label}
+        </label>
+        {maxLength && (
+          <span
+            className={`text-xs ${charCount > maxLength ? "text-red-500" : "text-gray-400"}`}
+          >
+            {charCount}/{maxLength}
+          </span>
+        )}
+      </div>
+      <textarea
+        name={name}
+        id={name}
+        ref={ref}
+        maxLength={maxLength}
+        placeholder={placeholder}
+        onChange={onChange}
+        onBlur={onBlur}
+        rows={3}
+        className={`w-full px-4 py-2.5 rounded-lg border transition-colors duration-200 outline-none resize-none
+          ${
+            hasError
+              ? "border-red-400 bg-red-50 focus:border-red-500 focus:ring-2 focus:ring-red-200"
+              : "border-gray-300 bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+          }`}
+      ></textarea>
+      {hasError && (
+        <p className="mt-1 text-sm text-red-500 flex items-center gap-1">
+          <span>&#9888;</span> {error}
+        </p>
+      )}
     </div>
   );
 });

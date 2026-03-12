@@ -1,28 +1,27 @@
-// ─── [임포트] ──────────────────────────────────────
-// useState를 임포트하세요.
 import { useState } from "react";
 import SignupForm from "./components/SignupForm";
 import SuccessModal from "./components/SuccessModal";
 
 export default function App() {
   // ─── [상태 선언] ──────────────────────────────────
-  // 회원가입 성공 시 사용자 정보를 저장하는 상태를 선언하세요.
-  // 초기값: null (가입 전에는 모달을 표시하지 않음)
-  // 힌트: const [변수명, 세터함수] = useState(null);
+  // 회원가입 성공 시 사용자 정보를 저장하는 상태를 선언
+  const [registeredUser, setRegisteredUser] = useState(null);
 
   // ─── [성공 핸들러] ────────────────────────────────
   // SignupForm에서 가입 성공 시 호출되는 함수입니다.
-  // user 객체를 받아 상태에 저장합니다.
-  // 힌트: const handleSuccess = (user) => { 세터함수(user); };
+  const handleSuccess = (user) => {
+    setRegisteredUser(user);
+  };
 
   // ─── [모달 닫기 핸들러] ────────────────────────────
   // SuccessModal에서 확인 버튼 클릭 시 호출됩니다.
-  // 상태를 null로 초기화하여 모달을 숨깁니다.
+  const handleCloseModal = () => {
+    setRegisteredUser(null);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* 헤더 */}
         <div className="text-center mb-8">
           <div className="w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
             <svg
@@ -47,7 +46,7 @@ export default function App() {
         <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
           {/* ─── [SignupForm 렌더링] ───────────────── */}
           {/* SignupForm 컴포넌트를 렌더링하고, onSuccess prop에 핸들러를 전달하세요. */}
-          {/* 힌트: <SignupForm onSuccess={handleSuccess} /> */}
+          <SignupForm onSuccess={handleSuccess} />
         </div>
 
         {/* 하단 링크 */}
@@ -60,10 +59,9 @@ export default function App() {
       </div>
 
       {/* ─── [성공 모달 조건부 렌더링] ──────────────── */}
-      {/* registeredUser가 존재할 때만 SuccessModal을 렌더링하세요. */}
-      {/* user prop에 registeredUser를, onClose prop에 모달 닫기 핸들러를 전달합니다. */}
-      {/* 힌트: {조건 && <SuccessModal user={...} onClose={...} />} */}
-      {/* ⚠️ 조건부 렌더링에 &&를 사용할 때는 조건이 falsy 값(0, "")이 아닌지 주의! */}
+      {registeredUser && (
+        <SuccessModal user={registeredUser} onClose={handleCloseModal} />
+      )}
     </div>
   );
 }
