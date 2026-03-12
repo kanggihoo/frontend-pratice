@@ -1,70 +1,101 @@
-// ─── [Props 받기] ────────────────────────────────
-// 부모(App)에서 아래 props를 내려줍니다.
-// - form: 입력 폼 객체 { title, category, priority, dueDate }
-// - categoryOptions: 카테고리 배열
-// - priorityOptions: 우선순위 배열
-// - onFieldChange: 입력값 변경 함수
-// - onSubmit: 폼 제출 함수
-
-export default function TodoComposer() {
+export default function TodoComposer({
+  form,
+  categoryOptions,
+  priorityOptions,
+  onFieldChange,
+  onSubmit,
+}) {
   return (
     // ─── [섹션 박스 스타일링] ────────────────────────
     // rounded-[28px] bg-slate-900 p-6 text-white shadow-xl shadow-slate-900/10
-    <section>
-      {/* ─── [제목 영역] ─────────────────────────────── */}
-      {/* 소제목, 큰 제목, 설명 문장을 배치하세요. */}
-      <div>
-        <p>Add Todo</p>
-        <h2>새로운 할 일을 추가해 보세요</h2>
-        <p>폼 객체 상태를 한 번에 관리하는 컴포넌트입니다.</p>
+    <section className="rounded-[28px] bg-slate-900 p-6 text-white shadow-xl shadow-slate-900/10">
+      <div className="mb-6 flex flex-col gap-2">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-indigo-200">
+          Add Todo
+        </p>
+        <h2 className="text-2xl font-bold">새로운 할 일을 추가해 보세요</h2>
+        <p className="max-w-2xl text-sm leading-6 text-slate-300">
+          하나의 객체 상태(form) 안에서 입력값을 관리하면 관련된 폼 데이터를
+          한곳에서 다룰 수 있습니다.
+        </p>
       </div>
 
       {/* ─── [폼 구성] ──────────────────────────────── */}
-      {/* <form onSubmit={onSubmit}> 형태로 구성하세요.
-          추천 레이아웃:
-          grid gap-4 lg:grid-cols-[2fr_1fr_1fr_auto]
-      */}
-      <form>
-        {/* ─── [제목 input] ─────────────────────────── */}
-        {/* value={form.title}
-            onChange={(event) => onFieldChange("title", event.target.value)}
+      <form
+        className="grid gap-4 lg:grid-cols-[2fr_1fr_1fr_auto]"
+        onSubmit={onSubmit}
+      >
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-medium text-slate-200">할 일 제목</span>
+          <input
+            type="text"
             placeholder="예: 컴포넌트 분리 기준 정리하기"
-        */}
-        <label>
-          <span>할 일 제목</span>
-          <input type="text" placeholder="제목 입력 로직을 연결하세요" />
+            value={form.title}
+            onChange={(event) => onFieldChange("title", event.target.value)}
+            className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+          />
         </label>
 
         {/* ─── [카테고리 select] ────────────────────── */}
-        {/* categoryOptions 배열을 map()으로 순회하며 option을 렌더링하세요.
-            value와 onChange를 form.category에 연결합니다. */}
-        <label>
-          <span>카테고리</span>
-          <select>
-            <option>카테고리 옵션을 map()으로 렌더링하세요</option>
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-medium text-slate-200">카테고리</span>
+          <select
+            value={form.category}
+            onChange={(event) => onFieldChange("category", event.target.value)}
+            className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white focus:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+          >
+            {categoryOptions.map((category) => (
+              <option
+                key={category}
+                value={category}
+                className="text-slate-900"
+              >
+                {category}
+              </option>
+            ))}
           </select>
         </label>
 
         {/* ─── [우선순위 / 마감일] ───────────────────── */}
-        {/* priorityOptions 배열도 map()으로 option을 만드세요.
-            dueDate는 type="date" input으로 연결합니다. */}
-        <div>
-          <label>
-            <span>우선순위</span>
-            <select>
-              <option>우선순위 옵션을 렌더링하세요</option>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+          <label className="flex flex-col gap-2">
+            <span className="text-sm font-medium text-slate-200">우선순위</span>
+            <select
+              value={form.priority}
+              onChange={(event) =>
+                onFieldChange("priority", event.target.value)
+              }
+              className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white focus:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+            >
+              {priorityOptions.map((priority) => (
+                <option
+                  key={priority}
+                  value={priority}
+                  className="text-slate-900"
+                >
+                  {priority}
+                </option>
+              ))}
             </select>
           </label>
-
-          <label>
-            <span>마감일</span>
-            <input type="date" />
+          <label className="flex flex-col gap-2">
+            <span className="text-sm font-medium text-slate-200">마감일</span>
+            <input
+              type="date"
+              value={form.dueDate}
+              onChange={(event) => onFieldChange("dueDate", event.target.value)}
+              className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white focus:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-400/40"
+            />
           </label>
         </div>
 
         {/* ─── [제출 버튼] ──────────────────────────── */}
-        {/* type="submit" 버튼을 추가하고, 시각적으로 눈에 띄게 스타일링하세요. */}
-        <button type="submit">할 일 추가</button>
+        <button
+          type="submit"
+          className="mt-auto rounded-2xl bg-indigo-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-indigo-300"
+        >
+          할 일 추가
+        </button>
       </form>
     </section>
   );

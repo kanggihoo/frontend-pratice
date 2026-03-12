@@ -43,6 +43,8 @@ export default function App() {
       ...prev,
       [name]: value,
     }));
+
+    console.log(form);
   };
 
   // ─── [할 일 추가 함수] ─────────────────────────────
@@ -87,12 +89,15 @@ export default function App() {
 
   // ─── [삭제 함수] ───────────────────────────────────
   // 특정 todo를 배열에서 제거하는 함수를 작성하세요.
-  // 힌트: filter()를 사용하여 id가 다른 항목만 남기면 됩니다.
-  const handleDeleteTodo = () => {};
+  const handleDeleteTodo = (todoId) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== todoId));
+  };
 
   // ─── [완료 항목 일괄 삭제] ─────────────────────────
   // completed가 true인 항목을 모두 제거하는 함수를 작성하세요.
-  const handleClearCompleted = () => {};
+  const handleClearCompleted = () => {
+    setTodos((prev) => prev.filter((todo) => !todo.completed));
+  };
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_#f5f7ff_0%,_#eef2ff_35%,_#ffffff_100%)]">
