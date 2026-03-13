@@ -23,10 +23,11 @@ trigger: manual
 
 ## 결과물 구조
 
-아래 디렉토리 구조로 생성해 주세요. 날짜 폴더는 오늘 날짜 기준입니다.
+아래 디렉토리 구조로 생성해 주세요. 커리큘럼 회차는 현재 작성할 해당 회차를, 날짜 폴더는 오늘 날짜 기준 입니다.
+react/ch-{커리큘럼 회차}-{날짜}/
 
 ```text
-nextjs/{날짜}/
+nextjs/ch-{커리큘럼 이름}-{날짜}/
 ├── completed/                    # 완성본 프로젝트
 │   ├── package.json
 │   ├── next.config.mjs           # Next.js 설정
