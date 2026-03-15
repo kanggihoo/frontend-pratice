@@ -5,23 +5,17 @@
 export default function CommentList({ comments }) {
   return (
     <section className="mt-10">
-      <h3 className="" /* ─── [섹션 제목 스타일링] ──────────────
-        힌트: text-xl font-bold text-gray-800 mb-6
-      */ >
+      <h3 className="text-xl font-bold text-gray-800 mb-6">
         💬 댓글 ({comments.length})
       </h3>
       <div className="space-y-4">
         {comments.map((comment) => (
           <div
             key={comment.id}
-            className="" /* ─── [댓글 카드 스타일링] ──────────────
-              힌트: bg-gray-50 rounded-lg p-5 border border-gray-100
-            */
+            className="bg-gray-50 rounded-lg p-5 border border-gray-100"
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="" /* ─── [아바타 스타일링] ──────────────
-                힌트: w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-sm
-              */ >
+              <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold text-sm">
                 {comment.name.charAt(0).toUpperCase()}
               </div>
               <div>
