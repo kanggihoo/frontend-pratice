@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import PostList from "./components/PostList";
 import PostListSkeleton from "./components/PostListSkeleton";
+import Loading from "./loading";
 
 export default function PostsPage() {
   return (

@@ -1,13 +1,8 @@
-// ─── [Suspense 임포트] ──────────────────────────────
-// React에서 Suspense 컴포넌트를 임포트해야 합니다.
-// 힌트: import { Suspense } from "react";
-
+import { Suspense } from "react";
 import PostListSkeleton from "./components/PostListSkeleton";
+import PostList from "./components/PostList";
 
 // ─── [PostList 컴포넌트 임포트] ──────────────────────
-// 게시글 목록을 렌더링하는 서버 컴포넌트를 임포트하세요.
-// 힌트: import PostList from "./components/PostList";
-
 export default function PostsPage() {
   return (
     <div className="space-y-6">
@@ -26,19 +21,10 @@ export default function PostsPage() {
         </p>
       </div>
 
-      {/* ─── [Suspense 스트리밍 렌더링] ─────────────────────
-       * 아래에 <Suspense> 컴포넌트로 PostList를 감싸세요.
-       * fallback에는 PostListSkeleton을 넣어줍니다.
-       *
-       * 이렇게 하면 PostList가 데이터를 불러오는 동안
-       * PostListSkeleton이 먼저 표시됩니다.
-       *
-       * 힌트:
-       * <Suspense fallback={<PostListSkeleton />}>
-       *   <PostList />
-       * </Suspense>
-       * ─────────────────────────────────────────────────── */}
-      <PostListSkeleton />
+      {/* Suspense로 감싸서 스트리밍 렌더링 구현 */}
+      <Suspense fallback={<PostListSkeleton />}>
+        <PostList />
+      </Suspense>
     </div>
   );
 }
