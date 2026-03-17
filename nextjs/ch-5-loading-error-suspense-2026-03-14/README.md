@@ -26,21 +26,18 @@
 
 ## 🔄 React와의 차이점
 
-<<<<<<< HEAD
-| React (기존 방식) | Next.js App Router |
-|---|---|
-| `useState`로 `isLoading` 상태 수동 관리 | `loading.js` 파일 하나로 자동 처리 |
-| `try/catch`와 `useState`로 에러 수동 처리 | `error.js`가 Error Boundary를 자동 생성 |
-| React Router의 별도 404 라우트 설정 | `not-found.js` + `notFound()` 함수 |
-| 모든 데이터가 준비될 때까지 빈 화면 | `<Suspense>`로 준비된 부분부터 점진적 렌더링 |
-=======
 | React (기존 방식)                         | Next.js App Router                           |
 | ----------------------------------------- | -------------------------------------------- |
 | `useState`로 `isLoading` 상태 수동 관리   | `loading.js` 파일 하나로 자동 처리           |
 | `try/catch`와 `useState`로 에러 수동 처리 | `error.js`가 Error Boundary를 자동 생성      |
 | React Router의 별도 404 라우트 설정       | `not-found.js` + `notFound()` 함수           |
 | 모든 데이터가 준비될 때까지 빈 화면       | `<Suspense>`로 준비된 부분부터 점진적 렌더링 |
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
+| React (기존 방식)                         | Next.js App Router                           |
+| ----------------------------------------- | -------------------------------------------- |
+| `useState`로 `isLoading` 상태 수동 관리   | `loading.js` 파일 하나로 자동 처리           |
+| `try/catch`와 `useState`로 에러 수동 처리 | `error.js`가 Error Boundary를 자동 생성      |
+| React Router의 별도 404 라우트 설정       | `not-found.js` + `notFound()` 함수           |
+| 모든 데이터가 준비될 때까지 빈 화면       | `<Suspense>`로 준비된 부분부터 점진적 렌더링 |
 
 **핵심 차이**: React에서는 로딩/에러 상태를 **직접 코드로 관리**했지만, Next.js에서는 **특수 파일을 만들기만 하면 프레임워크가 자동으로 처리**합니다.
 
@@ -91,10 +88,7 @@ npm run dev -- -p 3001
 서버에서 데이터 페칭 실패, 런타임 에러 등이 발생했을 때 전체 앱이 멈추지 않도록 해당 세그먼트만 에러 UI로 대체합니다.
 
 **필수 조건**:
-<<<<<<< HEAD
-=======
 
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
 - 반드시 `"use client"` 지시어가 있어야 합니다 (빌드 자체가 실패)
 - `error` prop: 발생한 에러 객체
 - `reset` prop: 에러 경계를 초기화하고 다시 렌더링하는 함수
@@ -112,8 +106,6 @@ export default function Error({ error, reset }) {
 }
 ```
 
-<<<<<<< HEAD
-=======
 #### reset()
 
 reset()은 **React의 클라이언트 사이드 렌더링(CSR) 흐름 안에서 동작**
@@ -122,7 +114,6 @@ reset()은 **React의 클라이언트 사이드 렌더링(CSR) 흐름 안에서 
 2. 임시 격리: 에러가 난 부분만 `error.js` 의 UI로 갈아 끼우고, 나머지 페이지(예: 상단 네비게이션 바, 사이드바 등)는 그대로 살아있게 합니다.
 3. 부분 복구: 사용자가 reset()을 누르면, React는 "자, 이 부분의 에러 기록을 지울 테니 다시 한번 렌더링을 시도해봐!"라고 명령합니다. **이때 서버 컴포넌트라면 서버에 해당 데이터만 다시 요청**하게 됩니다.
 
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
 ### 3. `not-found.js` — 404 페이지
 
 **왜 필요한가?**
@@ -135,12 +126,7 @@ import { notFound } from "next/navigation";
 
 export default async function Page({ params }) {
   const post = await getPost(params.id);
-<<<<<<< HEAD
-  if (!post) notFound();  // ← not-found.js가 렌더링됨
-=======
   if (!post) notFound(); // ← not-found.js가 렌더링됨
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
-  // ...
 }
 ```
 
@@ -150,10 +136,7 @@ export default async function Page({ params }) {
 하나의 페이지에서 여러 데이터를 가져올 때, 모든 데이터가 준비될 때까지 기다리지 않고 **준비된 부분부터 점진적으로 보여줄 수 있습니다**.
 
 이 예제에서:
-<<<<<<< HEAD
-=======
 
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
 - 게시글 본문 (1.5초) → 먼저 표시
 - 댓글 목록 (3초) → 나중에 스트리밍
 
@@ -200,47 +183,32 @@ app/
 ## 📝 추천 실습 순서
 
 ### Step 1: 스켈레톤 UI 먼저 만들기
-<<<<<<< HEAD
-=======
 
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
 1. `PostListSkeleton.js` — `animate-pulse`와 회색 블록으로 카드 12개의 스켈레톤 구현
 2. `PostDetailSkeleton.js` — 본문 + 댓글 영역 스켈레톤 구현
 3. `CommentSkeleton.js` — 댓글 카드 5개의 스켈레톤 구현
 
 ### Step 2: loading.js로 자동 로딩 UI 적용
-<<<<<<< HEAD
-=======
 
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
-4. `posts/loading.js` — PostListSkeleton을 임포트하여 로딩 UI 완성
-5. `posts/[id]/loading.js` — PostDetailSkeleton을 임포트하여 로딩 UI 완성
+1. `posts/loading.js` — PostListSkeleton을 임포트하여 로딩 UI 완성
+2. `posts/[id]/loading.js` — PostDetailSkeleton을 임포트하여 로딩 UI 완성
 
 ### Step 3: 데이터 페칭 서버 컴포넌트 구현
-<<<<<<< HEAD
-=======
 
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
-6. `PostList.js` — `async function`으로 만들고, delay + fetch로 데이터 가져오기
-7. `CommentList.js` — 동일 패턴으로 댓글 가져오기 (더 긴 딜레이)
+1. `PostList.js` — `async function`으로 만들고, delay + fetch로 데이터 가져오기
+2. `CommentList.js` — 동일 패턴으로 댓글 가져오기 (더 긴 딜레이)
 
 ### Step 4: Suspense 스트리밍 적용
-<<<<<<< HEAD
-=======
 
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
-8. `posts/page.js` — `<Suspense>`로 PostList 감싸기
-9. `posts/[id]/page.js` — `<Suspense>`로 CommentList 감싸기 (본문과 독립 스트리밍)
+1. `posts/page.js` — `<Suspense>`로 PostList 감싸기
+2. `posts/[id]/page.js` — `<Suspense>`로 CommentList 감싸기 (본문과 독립 스트리밍)
 
 ### Step 5: 에러/404 처리
-<<<<<<< HEAD
-=======
 
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
-10. `posts/[id]/page.js` — `notFound()` 호출 로직 추가
-11. `not-found.js` 파일들 — 404 UI 스타일링
-12. `ErrorSimulator.js` — "use client" + useState로 에러 발생 로직
-13. `error.js` 파일들 — error.message 표시 + reset() 연결
+1.  `posts/[id]/page.js` — `notFound()` 호출 로직 추가
+2.  `not-found.js` 파일들 — 404 UI 스타일링
+3.  `ErrorSimulator.js` — "use client" + useState로 에러 발생 로직
+4.  `error.js` 파일들 — error.message 표시 + reset() 연결
 
 ---
 
@@ -277,10 +245,7 @@ app/
 ## 🎓 최종 기대 효과
 
 이 회차를 마치면:
-<<<<<<< HEAD
-=======
 
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
 - Next.js의 **파일 기반 로딩/에러 처리 시스템**을 자유롭게 활용할 수 있습니다
 - React `<Suspense>`를 활용한 **스트리밍 렌더링**의 원리와 활용법을 이해합니다
 - 사용자 경험(UX)을 극적으로 향상시키는 **스켈레톤 UI 패턴**을 직접 구현할 수 있습니다
@@ -293,8 +258,6 @@ app/
 1. **중첩 에러 경계**: `posts/error.js`와 `posts/[id]/error.js`에 서로 다른 에러 UI를 적용하고, 각각이 독립적으로 동작하는지 확인해보세요.
 
 2. **병렬 데이터 페칭 + Suspense**: 게시글 상세 페이지에서 "관련 게시글" 섹션을 추가하고, 본문/댓글/관련 게시글이 각각 독립적으로 스트리밍되도록 3개의 `<Suspense>`를 사용해보세요.
-<<<<<<< HEAD
-=======
 
 ## 사용자가 `/posts` 로 넘어올 때 일어나는 실제 흐름
 
@@ -337,4 +300,3 @@ app/
 
 1. **바깥쪽 `<Suspense>` (자동 생성됨):** 우리가 만든 [loading.js](cci:7://file:///c:/Users/SSAFY/Desktop/frontend-pratice/nextjs/ch-5-loading-error-suspense-2026-03-14/completed/app/posts/loading.js:0:0-0:0) 컴포넌트를 `fallback`으로 삼아서 [page.js](cci:7://file:///c:/Users/SSAFY/Desktop/frontend-pratice/nextjs/ch-5-loading-error-suspense-2026-03-14/completed/app/posts/page.js:0:0-0:0) 전체를 감싸고 있습니다. 그래서 링크를 타고 **이 페이지로 최초 진입할 때 빈 화면 대신 [Loading](cci:1://file:///c:/Users/SSAFY/Desktop/frontend-pratice/nextjs/ch-5-loading-error-suspense-2026-03-14/completed/app/posts/loading.js:2:0-12:1) 컴포넌트(뼈대 전체)가 먼저 보이게 됨.**
 2. **안쪽 `<Suspense>` (개발자가 직접 씀):** [page.js](cci:7://file:///c:/Users/SSAFY/Desktop/frontend-pratice/nextjs/ch-5-loading-error-suspense-2026-03-14/completed/app/posts/page.js:0:0-0:0) 코드 윗부분(헤더)은 렌더링이 금방 끝나므로 바깥쪽 `<Suspense>`를 재빨리 걷어냅니다. 이후에 가장 느린 녀석인 `<PostList />`(API 통신 중) 때문에 안쪽의 `<Suspense>`가 버티면서 `<PostListSkeleton>`을 보여주게 되는 것입니다.
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f

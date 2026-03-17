@@ -1,5 +1,4 @@
 // ─── [서버 컴포넌트 — 게시글 목록] ──────────────────
-
 import Link from "next/link";
 
 const API_URL = "https://jsonplaceholder.typicode.com/posts";
@@ -23,6 +22,7 @@ async function getPosts() {
 
 export default async function PostList() {
   const posts = await getPosts();
+
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
       {posts.map((post) => (
@@ -39,9 +39,7 @@ export default async function PostList() {
           <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-indigo-600 transition-colors">
             {post.title}
           </h3>
-
           <p className="text-gray-500 text-sm line-clamp-1">{post.body}</p>
-
           <span className="inline-block mt-3 text-indigo-500 text-sm font-medium group-hover:translate-x-1 transition-transform">
             자세히 보기 →
           </span>

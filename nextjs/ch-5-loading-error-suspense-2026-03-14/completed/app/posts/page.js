@@ -1,10 +1,7 @@
 import { Suspense } from "react";
 import PostList from "./components/PostList";
 import PostListSkeleton from "./components/PostListSkeleton";
-<<<<<<< HEAD
-=======
 import Loading from "./loading";
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
 
 export default function PostsPage() {
   return (

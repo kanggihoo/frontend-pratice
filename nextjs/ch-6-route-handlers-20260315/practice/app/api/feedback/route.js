@@ -1,6 +1,5 @@
 // ─── [Route Handler 임포트] ─────────────────────────────
 import { NextResponse } from "next/server";
-
 /**
  * POST /api/feedback
  *

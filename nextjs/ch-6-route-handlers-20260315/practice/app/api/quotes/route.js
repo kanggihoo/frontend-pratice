@@ -9,6 +9,7 @@ import { NextResponse } from "next/server";
 const API_URL = process.env.QUOTES_API_URL;
 const API_KEY = process.env.QUOTES_API_KEY;
 
+
 /**
  * GET /api/quotes
  *
@@ -21,6 +22,7 @@ const API_KEY = process.env.QUOTES_API_KEY;
  */
 
 // ─── [GET 핸들러 함수 작성] ──────────────────────────────
+<<<<<<< HEAD
 
 export async function GET(request) {
   try {
@@ -57,7 +59,8 @@ export async function GET(request) {
     console.error("Quotes API Error:", error);
     return NextResponse.json(
       { error: "서버 오류가 발생했습니다." },
-      { status: 500 },
+      { status: 500 }
+
     );
   }
 }

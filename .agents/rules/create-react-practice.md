@@ -31,7 +31,6 @@ react/ch-{커리큘럼 회차}-{날짜}/
 │ ├── index.html
 │ ├── postcss.config.js # (Tailwind 설정 필요 시)
 │ └── src/
-<<<<<<< HEAD
 │ ├── main.jsx
 │ ├── App.jsx
 │ ├── index.css # Tailwind 지시어 포함
@@ -40,22 +39,19 @@ react/ch-{커리큘럼 회차}-{날짜}/
 │ ├── store/ # (Zustand 회차부터)
 │ └── data/ # (목업 데이터 사용 시)
 │ └── mockData.js
-=======
-│      ├── main.jsx
-│      ├── App.jsx
-│      ├── index.css # Tailwind 지시어 포함
-│      ├── components/ # 컴포넌트 파일들
-│      ├── hooks/ # (커스텀 훅 회차부터)
-│      ├── store/ # (Zustand 회차부터)
-│      └── data/ # (목업 데이터 사용 시)
-│           └── mockData.js
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
+│ ├── main.jsx
+│ ├── App.jsx
+│ ├── index.css # Tailwind 지시어 포함
+│ ├── components/ # 컴포넌트 파일들
+│ ├── hooks/ # (커스텀 훅 회차부터)
+│ ├── store/ # (Zustand 회차부터)
+│ └── data/ # (목업 데이터 사용 시)
+│ └── mockData.js
 ├── practice/ # 실습용 프로젝트 (동일 구조)
 │ ├── package.json # completed와 동일
 │ ├── vite.config.js # completed와 동일
 │ ├── index.html # completed와 동일
 │ ├── postcss.config.js
-<<<<<<< HEAD
 │ └── src/
 │ ├── main.jsx # completed와 동일
 │ ├── App.jsx # 뼈대 + 힌트 주석
@@ -64,16 +60,14 @@ react/ch-{커리큘럼 회차}-{날짜}/
 │ ├── hooks/ # 뼈대 + 힌트 주석
 │ ├── store/ # 뼈대 + 힌트 주석
 │ └── data/ # completed와 동일 (데이터는 그대로 제공)
-=======
 │ └─── src/
-│      ├── main.jsx # completed와 동일
-│      ├── App.jsx # 뼈대 + 힌트 주석
-│      ├── index.css # completed와 동일
-│      ├── components/ # 뼈대 + 힌트 주석
-│      ├── hooks/ # 뼈대 + 힌트 주석
-│      ├── store/ # 뼈대 + 힌트 주석
-│      └── data/ # completed와 동일 (데이터는 그대로 제공)
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
+│ ├── main.jsx # completed와 동일
+│ ├── App.jsx # 뼈대 + 힌트 주석
+│ ├── index.css # completed와 동일
+│ ├── components/ # 뼈대 + 힌트 주석
+│ ├── hooks/ # 뼈대 + 힌트 주석
+│ ├── store/ # 뼈대 + 힌트 주석
+│ └── data/ # completed와 동일 (데이터는 그대로 제공)
 └── README.md # 학습 가이드
 
 ## 결과물 상세 규칙
