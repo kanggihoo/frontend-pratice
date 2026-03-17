@@ -15,32 +15,6 @@ export default function PostListSkeleton() {
       {/* ─── [스켈레톤 카드 12개 생성] ─────────────────
        * Array.from({ length: 12 })로 12개의 스켈레톤 카드를 생성하세요.
        * 각 카드 안에는 실제 PostList의 카드와 비슷한 형태의
-<<<<<<< HEAD
-       * 회색 div 블록들을 배치합니다.
-       *
-       * 힌트:
-       * {Array.from({ length: 12 }).map((_, i) => (
-       *   <div key={i} className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 animate-pulse">
-       *     <div className="h-6 w-10 bg-gray-200 rounded-full mb-3" />
-       *     <div className="h-5 bg-gray-200 rounded w-full mb-2" />
-       *     <div className="h-5 bg-gray-200 rounded w-3/4 mb-2" />
-       *     <div className="h-4 bg-gray-100 rounded w-full mb-1.5" />
-       *     <div className="h-4 bg-gray-100 rounded w-5/6 mb-1.5" />
-       *     <div className="h-4 bg-gray-100 rounded w-2/3" />
-       *     <div className="h-4 w-24 bg-gray-100 rounded mt-3" />
-       *   </div>
-       * ))}
-       * ─────────────────────────────────────────────── */}
-      {Array.from({ length: 12 }).map((_, i) => (
-        <div
-          key={i}
-          className="bg-white p-5 rounded-xl shadow-sm border border-gray-100"
-        >
-          {/* 여기에 animate-pulse와 회색 블록들을 추가하세요 */}
-          <div className="h-20 flex items-center justify-center text-gray-300">
-            스켈레톤
-          </div>
-=======
        * 회색 div 블록들을 배치합니다.*/}
       {Array.from({ length: 12 }).map((_, i) => (
         <div
@@ -58,7 +32,6 @@ export default function PostListSkeleton() {
             <div className="h-4 bg-gray-100 rounded w-2/3" />
           </div>
           <div className="h-4 w-24 bg-gray-100 rounded mt-3" />
->>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
         </div>
       ))}
     </div>

@@ -28,42 +28,54 @@ export default function ApiInfoCard() {
 
   return (
     // ─── [카드 컨테이너 스타일링] ─────────────────────────
-    // 힌트: bg-white, rounded-xl, p-6, shadow-sm, border border-gray-100
-    <section className="">
-      <h2 className="">📡 API 엔드포인트 목록</h2>
-      <p className="">
-        이 대시보드에서 사용하는 Route Handler 엔드포인트입니다.
-        브라우저 개발자 도구(Network 탭)에서 요청을 확인해보세요!
+    <section className="bg-white, rounded-xl, p-6, shadow-sm, border border-gray-100">
+      <h2 className="text-xl font-bold text-gray-900 mb-1">
+        📡 API 엔드포인트 목록
+      </h2>
+      <p className="text-sm text-gray-500 mb-4">
+        이 대시보드에서 사용하는 Route Handler 엔드포인트입니다. 브라우저 개발자
+        도구(Network 탭)에서 요청을 확인해보세요!
       </p>
 
       {/* ─── [엔드포인트 목록 렌더링] ──────────────────── */}
-      {/* endpoints 배열을 map으로 순회하며 각 엔드포인트 정보를 표시하세요. */}
-      {/* 힌트: HTTP 메서드 배지 + 경로 + 설명 + 파라미터 구조 */}
       <div className="">
         {endpoints.map((endpoint) => (
-          <div key={endpoint.path} className="">
-            {/* ─── [HTTP 메서드 배지] ──────────────────── */}
-            {/* 힌트: endpoint.color로 배경색, text-white, text-xs, font-bold, px-2.5, py-1, rounded */}
-            <span className="">
+          <div
+            key={endpoint.path}
+            className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg"
+          >
+            <span
+              className={`${endpoint.color} text-white text-xs font-bold px-2.5 py-1 rounded shrink-0`}
+            >
               {endpoint.method}
             </span>
             <div>
-              <code className="">{endpoint.path}</code>
-              <p className="">{endpoint.description}</p>
-              <p className="">{endpoint.params}</p>
+              <code className="text-sm font-mono font-bold text-gray-800">
+                {endpoint.path}
+              </code>
+              <p className="text-sm text-gray-600 mt-0.5">
+                {endpoint.description}
+              </p>
+              <p className="text-xs text-gray-400 mt-0.5 font-mono">
+                {endpoint.params}
+              </p>
             </div>
           </div>
         ))}
       </div>
 
       {/* ─── [API Key 보안 안내 박스] ──────────────────── */}
-      {/* 힌트: bg-amber-50, border border-amber-200, rounded-lg, p-4 */}
-      <div className="">
-        <p className="">🔑 API Key 보안 확인하기</p>
-        <p className="">
-          브라우저 개발자 도구 → Network 탭 → 각 API 요청의 Headers를 확인해보세요.
-          클라이언트에서는 /api/quotes만 보이고,
-          실제 외부 API URL과 API Key는 보이지 않습니다!
+      <div className="mt-5 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+        <p className="text-sm text-amber-800 font-medium">
+          🔑 API Key 보안 확인하기
+        </p>
+        <p className="text-sm text-amber-700 mt-1">
+          브라우저 개발자 도구 → Network 탭 → 각 API 요청의 Headers를
+          확인해보세요.
+          <br />
+          클라이언트에서는{" "}
+          <code className="bg-amber-100 px-1 rounded">/api/quotes</code>만
+          보이고, 실제 외부 API URL과 API Key는 보이지 않습니다!
         </p>
       </div>
     </section>

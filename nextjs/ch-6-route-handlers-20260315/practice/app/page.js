@@ -22,9 +22,7 @@ export default function Home() {
     <div className="">
       <Header />
 
-      {/* ─── [메인 컨텐츠 영역] ──────────────────────────── */}
-      {/* 힌트: max-w-6xl, mx-auto, px-4, py-8, space-y-10 */}
-      <main className="">
+      <main className="max-w-6xl mx-auto px-4 py-8 space-y-10">
         {/* API 엔드포인트 정보 (서버 컴포넌트) */}
         <ApiInfoCard />
 
@@ -38,7 +36,7 @@ export default function Home() {
         <FeedbackForm />
       </main>
 
-      <footer className="">
+      <footer className="border-t border-gray-200 py-6 text-center text-sm text-gray-500">
         Next.js Route Handlers 학습 예제 — 6회차
       </footer>
     </div>
