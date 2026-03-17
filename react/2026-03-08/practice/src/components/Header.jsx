@@ -21,6 +21,7 @@ export default function Header({ stats }) {
             lg 이상에서는 가로 정렬, 모바일에서는 세로 정렬이 되도록 구성하세요. */}
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
+<<<<<<< HEAD
             <p className="mb-2 inline-flex items-center rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700">
               React 회차 2 · useState 심화 + 컴포넌트 분리
             </p>
@@ -32,6 +33,12 @@ export default function Header({ stats }) {
               배열 상태 업데이트, 객체 상태 관리, 부모에서 자식으로 함수
               전달하기를 한 화면에서 연습할 수 있도록 구성한 예제입니다.
             </p>
+=======
+            <p className="mb-2 inline-flex items-center rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700">React 회차 2 · useState 심화 + 컴포넌트 분리</p>
+            <h1 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">오늘 해야 할 일을 상태로 관리하는 Todo 플래너</h1>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base"> 배열 상태 업데이트, 객체 상태 관리, 부모에서 자식으로 함수 전달하기를 한 화면에서
+              연습할 수 있도록 구성한 예제입니다.</p>
+>>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
           </div>
 
           <div className=" rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
@@ -48,6 +55,7 @@ export default function Header({ stats }) {
           </div>
           <div className="rounded-2xl bg-emerald-50 px-5 py-4 shadow-sm ring-1 ring-emerald-100">
             <p className="text-sm text-emerald-700">완료된 할 일</p>
+<<<<<<< HEAD
             <p className="mt-2 text-3xl font-bold text-emerald-900">
               {stats.completed}
             </p>
@@ -57,6 +65,13 @@ export default function Header({ stats }) {
             <p className="mt-2 text-3xl font-bold text-amber-900">
               {stats.active}
             </p>
+=======
+            <p className="mt-2 text-3xl font-bold text-emerald-900">{stats.completed}</p>
+          </div>
+          <div className="rounded-2xl bg-amber-50 px-5 py-4 shadow-sm ring-1 ring-amber-100">
+            <p className="text-sm text-amber-700">남은 할 일</p>
+            <p className="mt-2 text-3xl font-bold text-amber-900">{stats.active}</p>
+>>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
           </div>
         </div>
       </div>

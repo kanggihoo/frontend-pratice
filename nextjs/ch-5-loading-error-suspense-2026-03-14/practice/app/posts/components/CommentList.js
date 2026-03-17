@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // ─── [서버 컴포넌트 — 댓글 목록] ────────────────────
 // 이 컴포넌트는 게시글의 댓글을 서버에서 가져와 렌더링합니다.
 // 게시글 본문보다 더 긴 딜레이를 주어,
@@ -36,6 +37,27 @@ export default function CommentList({ postId }) {
       </div>
     );
   }
+=======
+const API_URL = "https://jsonplaceholder.typicode.com/comments";
+
+// ─── [딜레이 함수] ───────────────────────────────────
+async function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// ─── [댓글 데이터 페칭 함수] ─────────────────────────
+async function getComments(postId) {
+  await delay(3000);
+  const res = await fetch(`${API_URL}?postId=${postId}`);
+  if (!res.ok) throw new Error("댓글을 불러오는데 실패했습니다.");
+  return res.json();
+}
+
+// ─── [async 서버 컴포넌트] ───────────────────────────
+export default async function CommentList({ postId }) {
+  // ─── [데이터 페칭] ──────────────────────────────────
+  const comments = await getComments(postId);
+>>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
 
   return (
     <div className="space-y-3">
@@ -45,6 +67,7 @@ export default function CommentList({ postId }) {
           className="bg-white p-4 rounded-xl border border-gray-100"
         >
           <div className="flex items-center gap-2 mb-2">
+<<<<<<< HEAD
             {/* ─── [아바타] ─────────────────────────────
              * comment.name의 첫 글자를 원형 뱃지로 표시하세요.
              * 힌트:
@@ -52,6 +75,11 @@ export default function CommentList({ postId }) {
              *   {comment.name.charAt(0).toUpperCase()}
              * </div>
              * ─────────────────────────────────────── */}
+=======
+            <div className="w-7 h-7 bg-indigo-100 rounded-full flex items-center justify-center text-xs font-bold text-indigo-600">
+              {comment.name.charAt(0).toUpperCase()}
+            </div>
+>>>>>>> ac06ffee49136562bdd1cf983bf3e8416e10a53f
             <span className="text-sm font-medium text-gray-700 truncate max-w-xs">
               {comment.name}
             </span>
