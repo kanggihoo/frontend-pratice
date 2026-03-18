@@ -44,7 +44,7 @@ react/ch-{커리큘럼 회차}-{날짜}/
 │ ├── vite.config.js # completed와 동일
 │ ├── index.html # completed와 동일
 │ ├── postcss.config.js
-│ └── src/
+│ └─── src/
 │ ├── main.jsx # completed와 동일
 │ ├── App.jsx # 뼈대 + 힌트 주석
 │ ├── index.css # completed와 동일
