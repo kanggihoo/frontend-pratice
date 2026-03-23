@@ -43,8 +43,6 @@ export default function App() {
       ...prev,
       [name]: value,
     }));
-
-    console.log(form);
   };
 
   // ─── [할 일 추가 함수] ─────────────────────────────

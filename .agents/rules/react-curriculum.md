@@ -137,10 +137,10 @@ trigger: manual
 - [x] 회차 3 — useEffect + API 호출
 - [x] 회차 4 — useRef + 비제어 컴포넌트
 - [x] 회차 5 — useContext + 전역 상태
-- [ ] 회차 6 — 커스텀 훅
-- [ ] 회차 7 — React.memo, useMemo, useCallback
-- [ ] 회차 8 — TanStack Query 기초
-- [ ] 회차 9 — TanStack Query 심화
-- [ ] 회차 10 — Zustand 기초
-- [ ] 회차 11 — Zustand 심화 + TanStack Query 연계
-- [ ] 회차 12 — 종합 프로젝트
+- [x] 회차 6 — 커스텀 훅
+- [x] 회차 7 — React.memo, useMemo, useCallback
+- [x] 회차 8 — TanStack Query 기초
+- [x] 회차 9 — TanStack Query 심화
+- [x] 회차 10 — Zustand 기초
+- [x] 회차 11 — Zustand 심화 + TanStack Query 연계
+- [x] 회차 12 — 종합 프로젝트

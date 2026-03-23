@@ -81,3 +81,14 @@ $RECYCLE.BIN/
 # 로그
 *.log
 npm-debug.log*
+
+# Next.js 빌드 시 생성되는 파일들
+**/.next/
+**/out/
+**/build/
+
+# Vercel (Next.js를 배포할 때 사용하는 서비스)
+**/.vercel/
+
+# TypeScript 관련 빌드 정보
+**/*.tsbuildinfo
