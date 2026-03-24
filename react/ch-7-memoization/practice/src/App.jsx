@@ -1,4 +1,11 @@
+// ─── [성능 최적화 핵심 훅 import] ────────────────────────
+// useState와 함께 useMemo, useCallback을 import하세요.
+//
+// useMemo: 계산 비용이 큰 값을 메모이제이션 (값을 캐싱)
+// useCallback: 함수를 메모이제이션 (함수 참조를 유지)
+//
 import { useState, useMemo, useCallback } from "react";
+
 import { products, categories } from "./data/mockData";
 import SearchBar from "./components/SearchBar";
 import CategoryFilter from "./components/CategoryFilter";
@@ -8,38 +15,53 @@ import StatsPanel from "./components/StatsPanel";
 import RenderCounter from "./components/RenderCounter";
 
 export default function App() {
+  // ─── [상태 선언] ──────────────────────────────────────
+  // 3개의 상태를 useState로 선언하세요.
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [sortOption, setSortOption] = useState("default");
-
-  // ─── useCallback ─────────────────────────────────────
-  // 이벤트 핸들러를 useCallback으로 감싸면, 함수의 참조가 유지됩니다.
-  // memo로 감싼 자식 컴포넌트에 props로 전달할 때, 함수 참조가 바뀌지 않아야
-  // memo가 제대로 동작합니다.
   //
-  // useCallback을 사용하지 않으면?
-  // → App이 리렌더링될 때마다 새로운 함수 객체가 생성됨
-  // → memo로 감싼 SearchBar에 전달되는 onSearchChange의 참조가 달라짐
-  // → SearchBar가 불필요하게 리렌더링됨
+
+  // ─── [useCallback — 이벤트 핸들러 메모이제이션] ────────
+  // 아래 3개의 핸들러 함수를 useCallback으로 감싸세요.
+  //
+  // useCallback이란?
+  // - 함수를 메모이제이션하여 참조를 유지하는 훅입니다.
+  // - 의존성 배열의 값이 변경될 때만 새로운 함수를 생성합니다.
+  // - memo로 감싼 자식 컴포넌트에 함수를 전달할 때 반드시 필요합니다.
+  //
+  // 왜 필요할까?
+  // - useCallback이 없으면, App이 리렌더링될 때마다 새로운 함수 객체가 생성됩니다.
+  // - 새로운 함수 참조 → memo가 props 변경으로 감지 → 자식 리렌더링
+  // - useCallback을 사용하면 같은 함수 참조가 유지되어 memo가 제대로 동작합니다.
+  //
+
+  // 검색어 변경 핸들러
   const handleSearchChange = useCallback((value) => {
     setSearchTerm(value);
   }, []);
 
+  // 카테고리 변경 핸들러
   const handleCategoryChange = useCallback((category) => {
     setSelectedCategory(category);
   }, []);
 
+  // 정렬 옵션 변경 핸들러
   const handleSortChange = useCallback((option) => {
     setSortOption(option);
   }, []);
 
-  // ─── useMemo (필터링) ──────────────────────────────────
-  // 200개 상품을 매 렌더링마다 필터링하는 것은 비효율적입니다.
-  // useMemo를 사용하면 searchTerm이나 selectedCategory가 변경될 때만 재계산합니다.
+  // ─── [useMemo — 필터링 로직 메모이제이션] ──────────────
+  // 200개의 상품을 필터링하는 로직을 useMemo로 감싸세요.
   //
   // 의존성 배열: [searchTerm, selectedCategory]
-  // → 이 두 값이 바뀔 때만 필터링을 다시 실행
-  // → sortOption이 바뀌어도 필터링은 다시 실행되지 않음 (정렬은 별도 useMemo)
+  // → 검색어나 카테고리가 바뀔 때만 필터링을 다시 실행합니다.
+  // → 정렬 옵션(sortOption)이 바뀌어도 필터링은 재실행되지 않습니다.
+  //
+  // 필터링 조건:
+  // 1. searchTerm이 비어있거나, 상품명/브랜드/카테고리에 포함되면 통과
+  // 2. selectedCategory가 "전체"이거나, 상품 카테고리와 일치하면 통과
+
   const filteredProducts = useMemo(() => {
     const lowerSearch = searchTerm.toLowerCase();
 
@@ -57,9 +79,11 @@ export default function App() {
     });
   }, [searchTerm, selectedCategory]);
 
-  // ─── useMemo (정렬) ──────────────────────────────────
-  // 필터링과 정렬을 분리하여, 정렬 옵션만 바뀌었을 때 필터링을 다시 하지 않도록 합니다.
-  // filteredProducts가 바뀌거나 sortOption이 바뀔 때만 재계산합니다.
+  // ─── [useMemo — 정렬 로직 메모이제이션] ────────────────
+  // 필터링된 결과를 정렬하는 로직을 useMemo로 감싸세요.
+  //
+  // 의존성 배열: [filteredProducts, sortOption]
+  // → 필터 결과나 정렬 옵션이 바뀔 때만 정렬을 다시 실행합니다.
   const sortedProducts = useMemo(() => {
     if (sortOption === "default") return filteredProducts;
 
@@ -88,9 +112,7 @@ export default function App() {
         <div className="mx-auto max-w-7xl px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                🛒 상품 마켓
-              </h1>
+              <h1 className="text-2xl font-bold text-gray-900">🛒 상품 마켓</h1>
               <p className="mt-1 text-sm text-gray-500">
                 React.memo, useMemo, useCallback으로 최적화된 대량 상품 리스트
               </p>
@@ -101,7 +123,7 @@ export default function App() {
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-6">
-        {/* 통계 패널 — useMemo로 연산 최적화 */}
+        {/* 통계 패널 */}
         <StatsPanel products={sortedProducts} />
 
         {/* 검색 & 필터 컨트롤 */}
@@ -141,23 +163,22 @@ export default function App() {
             <div className="rounded-lg bg-white p-4 shadow-sm">
               <h3 className="font-bold text-blue-700">React.memo</h3>
               <p className="mt-1 text-sm text-gray-600">
-                SearchBar, CategoryFilter, SortControls, ProductItem을
-                memo로 감싸서, props가 변경되지 않으면 리렌더링을
-                건너뜁니다.
+                SearchBar, CategoryFilter, SortControls, ProductItem을 memo로
+                감싸서, props가 변경되지 않으면 리렌더링을 건너뜁니다.
               </p>
             </div>
             <div className="rounded-lg bg-white p-4 shadow-sm">
               <h3 className="font-bold text-green-700">useMemo</h3>
               <p className="mt-1 text-sm text-gray-600">
-                필터링, 정렬, 통계 연산을 메모이제이션하여 의존성이 변경될
-                때만 재계산합니다.
+                필터링, 정렬, 통계 연산을 메모이제이션하여 의존성이 변경될 때만
+                재계산합니다.
               </p>
             </div>
             <div className="rounded-lg bg-white p-4 shadow-sm">
               <h3 className="font-bold text-purple-700">useCallback</h3>
               <p className="mt-1 text-sm text-gray-600">
-                이벤트 핸들러의 참조를 유지하여, memo로 감싼 자식에게
-                전달할 때 불필요한 리렌더링을 방지합니다.
+                이벤트 핸들러의 참조를 유지하여, memo로 감싼 자식에게 전달할 때
+                불필요한 리렌더링을 방지합니다.
               </p>
             </div>
           </div>

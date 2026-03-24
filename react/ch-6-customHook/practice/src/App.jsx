@@ -11,78 +11,61 @@ const API_BASE = "https://jsonplaceholder.typicode.com";
 export default function App() {
   // ─── [검색어 상태] ───────────────────────────────
   // 검색 입력값을 관리하는 상태를 선언하세요.
-  // 힌트: const [searchTerm, setSearchTerm] = useState("");
-
+  const [searchTerm, setSearchTerm] = useState("");
 
   // ─── [즐겨찾기 상태 - useLocalStorage 사용] ───────────────────────────
-  // useLocalStorage 커스텀 훅을 사용하여 즐겨찾기 상태를 관리하세요.
-  // - key: "favorite-users"
-  // - initialValue: [] (빈 배열)
-  // - 반환값: [favorites, setFavorites, resetFavorites]
-  //
-  // 이렇게 하면 즐겨찾기가 새로고침해도 유지됩니다!
-  //
-  // 힌트: const [favorites, setFavorites, resetFavorites] = useLocalStorage("favorite-users", []);
-
-
+  const [favorites, setFavorites, resetFavorites] = useLocalStorage(
+    "favorite-users",
+    [],
+  );
   // ─── [검색어 디바운스 - useDebounce 사용] ───────────────────────────
-  // useDebounce 커스텀 훅을 사용하여 검색어를 디바운스하세요.
-  // - value: searchTerm (위에서 선언한 검색어)
-  // - delay: 400 (400ms 후에 업데이트)
-  //
   // 이렇게 하면 타이핑할 때마다 필터링이 실행되지 않고,
   // 타이핑을 멈춘 후 400ms 후에만 필터링됩니다.
-  //
-  // 힌트: const debouncedSearch = useDebounce(searchTerm, 400);
-
+  const debouncedSearch = useDebounce(searchTerm, 400);
 
   // ─── [API 호출 - useFetch 사용] ───────────────────────────
-  // useFetch 커스텀 훅을 사용하여 유저 목록을 가져오세요.
-  // - url: `${API_BASE}/users`
-  // - 반환값에서 data를 users로 이름 변경 (구조분해 할당 시 별칭 사용)
-  //
-  // 힌트: const { data: users, loading, error, refetch } = useFetch(`${API_BASE}/users`);
-
+  const {
+    data: users,
+    loading,
+    error,
+    refetch,
+  } = useFetch(`${API_BASE}/users`);
 
   // ─── [검색 필터링] ───────────────────────────
   // users 배열에서 debouncedSearch로 필터링하세요.
-  // 검색 대상: user.name, user.email, user.company.name
-  // 대소문자 구분 없이 검색 (toLowerCase() 사용)
-  //
-  // 힌트:
-  //   const filteredUsers = users
-  //     ? users.filter(user =>
-  //         user.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-  //         user.email.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-  //         user.company.name.toLowerCase().includes(debouncedSearch.toLowerCase())
-  //       )
-  //     : [];
-  const filteredUsers = [];
+
+  const filteredUsers = users
+    ? users.filter(
+        (user) =>
+          user.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+          user.email.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+          user.company.name
+            .toLowerCase()
+            .includes(debouncedSearch.toLowerCase()),
+      )
+    : [];
 
   // ─── [즐겨찾기 토글 함수] ───────────────────────────
   // userId를 받아서 즐겨찾기 배열에 추가/제거하는 함수를 작성하세요.
   // - 이미 포함되어 있으면 → filter로 제거
   // - 포함되어 있지 않으면 → spread로 추가
   //
-  // 힌트:
-  //   const toggleFavorite = (userId) => {
-  //     setFavorites(prev =>
-  //       prev.includes(userId)
-  //         ? prev.filter(id => id !== userId)
-  //         : [...prev, userId]
-  //     );
-  //   };
-  const toggleFavorite = () => {};
+  const toggleFavorite = (userId) => {
+    setFavorites((prev) =>
+      prev.includes(userId)
+        ? prev.filter((id) => id !== userId)
+        : [...prev, userId],
+    );
+  };
 
   // ─── [즐겨찾기 확인 함수] ───────────────────────────
-  // userId가 즐겨찾기에 포함되어 있는지 확인하는 함수를 작성하세요.
-  // 힌트: const isFavorite = (userId) => favorites.includes(userId);
-  const isFavorite = () => false;
+  const isFavorite = (userId) => favorites.includes(userId);
 
   // ─── [즐겨찾기된 유저 목록] ───────────────────────────
   // users 배열에서 favorites에 포함된 유저만 필터링하세요.
-  // 힌트: const favoriteUsers = users ? users.filter(user => favorites.includes(user.id)) : [];
-  const favoriteUsers = [];
+  const favoriteUsers = users
+    ? users.filter((user) => favorites.includes(user.id))
+    : [];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -112,10 +95,10 @@ export default function App() {
                 - isSearching: 디바운스 진행 중인지 (searchTerm !== debouncedSearch)
             */}
             <SearchBar
-              searchTerm={""}
-              onSearchChange={() => {}}
-              resultCount={0}
-              isSearching={false}
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+              resultCount={filteredUsers.length}
+              isSearching={searchTerm !== debouncedSearch}
             />
 
             {/* ─── [UserList 컴포넌트] ───────────────────────────
@@ -128,9 +111,9 @@ export default function App() {
             */}
             <UserList
               users={filteredUsers}
-              loading={false}
-              error={null}
-              onRetry={() => {}}
+              loading={loading}
+              error={error}
+              onRetry={refetch}
               onToggleFavorite={toggleFavorite}
               isFavorite={isFavorite}
             />
@@ -138,16 +121,10 @@ export default function App() {
 
           {/* 오른쪽: 즐겨찾기 (1칸) */}
           <div>
-            {/* ─── [FavoritesList 컴포넌트] ───────────────────────────
-                props:
-                - favoriteUsers: 즐겨찾기된 유저 목록
-                - onRemoveFavorite: 즐겨찾기 해제 함수 (toggleFavorite)
-                - onResetFavorites: 전체 초기화 함수 (resetFavorites)
-            */}
             <FavoritesList
               favoriteUsers={favoriteUsers}
               onRemoveFavorite={toggleFavorite}
-              onResetFavorites={() => {}}
+              onResetFavorites={resetFavorites}
             />
           </div>
         </div>

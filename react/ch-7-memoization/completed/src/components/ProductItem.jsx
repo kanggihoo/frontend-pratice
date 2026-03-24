@@ -20,7 +20,8 @@ const ProductItem = memo(function ProductItem({ product }) {
   const formattedDiscountedPrice = discountedPrice.toLocaleString("ko-KR");
 
   // 별점을 시각적으로 표현
-  const stars = "★".repeat(Math.floor(rating)) + "☆".repeat(5 - Math.floor(rating));
+  const stars =
+    "★".repeat(Math.floor(rating)) + "☆".repeat(5 - Math.floor(rating));
 
   return (
     <div className="group rounded-xl border border-gray-100 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
@@ -43,9 +44,7 @@ const ProductItem = memo(function ProductItem({ product }) {
       <div className="mb-2">
         {discount > 0 ? (
           <div className="flex items-baseline gap-2">
-            <span className="text-lg font-bold text-red-500">
-              {discount}%
-            </span>
+            <span className="text-lg font-bold text-red-500">{discount}%</span>
             <span className="text-lg font-bold text-gray-900">
               {formattedDiscountedPrice}원
             </span>

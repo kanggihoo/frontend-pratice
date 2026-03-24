@@ -12,18 +12,12 @@ import { useState, useEffect } from "react";
  */
 export default function useFetch(url, options = {}) {
   // ─── [상태 선언] ───────────────────────────────
-  // 3개의 상태가 필요합니다:
-  // 1. data: API에서 받아온 데이터 (초기값: null)
-  // 2. loading: 로딩 중인지 여부 (초기값: false)
-  // 3. error: 에러 메시지 (초기값: null)
-  // 힌트: const [변수명, 세터함수] = useState(초기값);
-
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   // ─── [데이터 가져오기 함수] ───────────────────────────
   // fetchData라는 async 함수를 작성하세요.
-  // 이 함수는 fetchUrl을 매개변수로 받습니다.
-  //
-  // 구현 순서:
   // 1. fetchUrl이 없으면 early return
   // 2. loading을 true로, error를 null로 설정
   // 3. try-catch-finally 구조로 fetch 호출
@@ -31,24 +25,35 @@ export default function useFetch(url, options = {}) {
   //    - catch: 에러 메시지를 error 상태에 저장
   //    - finally: loading을 false로 설정
   //
-  // 힌트: const response = await fetch(fetchUrl, options);
-  // 힌트: if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+  const fetchData = async (fetchUrl) => {
+    if (!fetchUrl) return;
 
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(fetchUrl, options);
+      if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // ─── [useEffect로 자동 호출] ───────────────────────────
   // url이 변경될 때마다 fetchData를 호출하는 useEffect를 작성하세요.
-  // 의존성 배열에 url을 넣어야 합니다.
-  //
-  // 힌트: useEffect(() => { fetchData(url); }, [url]);
+  useEffect(() => {
+    fetchData(url);
+  }, [url]);
 
-
-  // ─── [refetch 함수] ───────────────────────────
-  // 수동으로 데이터를 다시 가져올 수 있는 refetch 함수를 작성하세요.
-  // fetchData(url)을 호출하면 됩니다.
-
+  const refetch = () => {
+    fetchData(url);
+  };
 
   // ─── [반환값] ───────────────────────────
-  // data, loading, error, refetch를 객체로 반환하세요.
-  // 힌트: return { data, loading, error, refetch };
-  return { data: null, loading: false, error: null, refetch: () => {} };
+  return { data: data, loading: loading, error: error, refetch: refetch };
 }
