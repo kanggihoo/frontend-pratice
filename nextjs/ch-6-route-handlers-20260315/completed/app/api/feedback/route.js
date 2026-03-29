@@ -34,8 +34,29 @@ export async function POST(request) {
     }
 
     // 실제로는 여기서 DB 저장, 이메일 전송 등을 수행합니다.
-    // 지금은 받은 데이터를 로그로 출력하고 성공 응답을 반환합니다.
-    console.log("📩 피드백 수신:", { name, email, message, rating });
+    // .env.local에 설정된 가짜 웹훅(Webhook) 또는 테스트용 엔드포인트로 데이터를 전송해봅니다.
+    console.log("📩 피드백 수신 로컬 로그:", { name, email, message, rating });
+
+    if (process.env.FEEDBACK_API_URL) {
+      try {
+        const externalRes = await fetch(process.env.FEEDBACK_API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.FEEDBACK_API_KEY || "test-key"}`,
+          },
+          body: JSON.stringify({ name, email, message, rating }),
+        });
+
+        if (!externalRes.ok) {
+          console.warn("⚠️ 외부 테스트 API 전달 실패:", externalRes.status);
+        } else {
+          console.log("✅ 외부 테스트 API로 성공적으로 전송 완료");
+        }
+      } catch (err) {
+        console.error("⚠️ 외부 테스트 API 전송 중 오류:", err.message);
+      }
+    }
 
     return NextResponse.json(
       {

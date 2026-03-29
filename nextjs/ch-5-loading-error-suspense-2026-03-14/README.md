@@ -32,6 +32,12 @@
 | `try/catch`와 `useState`로 에러 수동 처리 | `error.js`가 Error Boundary를 자동 생성      |
 | React Router의 별도 404 라우트 설정       | `not-found.js` + `notFound()` 함수           |
 | 모든 데이터가 준비될 때까지 빈 화면       | `<Suspense>`로 준비된 부분부터 점진적 렌더링 |
+| React (기존 방식)                         | Next.js App Router                           |
+| ----------------------------------------- | -------------------------------------------- |
+| `useState`로 `isLoading` 상태 수동 관리   | `loading.js` 파일 하나로 자동 처리           |
+| `try/catch`와 `useState`로 에러 수동 처리 | `error.js`가 Error Boundary를 자동 생성      |
+| React Router의 별도 404 라우트 설정       | `not-found.js` + `notFound()` 함수           |
+| 모든 데이터가 준비될 때까지 빈 화면       | `<Suspense>`로 준비된 부분부터 점진적 렌더링 |
 
 **핵심 차이**: React에서는 로딩/에러 상태를 **직접 코드로 관리**했지만, Next.js에서는 **특수 파일을 만들기만 하면 프레임워크가 자동으로 처리**합니다.
 
@@ -121,7 +127,6 @@ import { notFound } from "next/navigation";
 export default async function Page({ params }) {
   const post = await getPost(params.id);
   if (!post) notFound(); // ← not-found.js가 렌더링됨
-  // ...
 }
 ```
 
@@ -185,25 +190,25 @@ app/
 
 ### Step 2: loading.js로 자동 로딩 UI 적용
 
-4. `posts/loading.js` — PostListSkeleton을 임포트하여 로딩 UI 완성
-5. `posts/[id]/loading.js` — PostDetailSkeleton을 임포트하여 로딩 UI 완성
+1. `posts/loading.js` — PostListSkeleton을 임포트하여 로딩 UI 완성
+2. `posts/[id]/loading.js` — PostDetailSkeleton을 임포트하여 로딩 UI 완성
 
 ### Step 3: 데이터 페칭 서버 컴포넌트 구현
 
-6. `PostList.js` — `async function`으로 만들고, delay + fetch로 데이터 가져오기
-7. `CommentList.js` — 동일 패턴으로 댓글 가져오기 (더 긴 딜레이)
+1. `PostList.js` — `async function`으로 만들고, delay + fetch로 데이터 가져오기
+2. `CommentList.js` — 동일 패턴으로 댓글 가져오기 (더 긴 딜레이)
 
 ### Step 4: Suspense 스트리밍 적용
 
-8. `posts/page.js` — `<Suspense>`로 PostList 감싸기
-9. `posts/[id]/page.js` — `<Suspense>`로 CommentList 감싸기 (본문과 독립 스트리밍)
+1. `posts/page.js` — `<Suspense>`로 PostList 감싸기
+2. `posts/[id]/page.js` — `<Suspense>`로 CommentList 감싸기 (본문과 독립 스트리밍)
 
 ### Step 5: 에러/404 처리
 
-10. `posts/[id]/page.js` — `notFound()` 호출 로직 추가
-11. `not-found.js` 파일들 — 404 UI 스타일링
-12. `ErrorSimulator.js` — "use client" + useState로 에러 발생 로직
-13. `error.js` 파일들 — error.message 표시 + reset() 연결
+1.  `posts/[id]/page.js` — `notFound()` 호출 로직 추가
+2.  `not-found.js` 파일들 — 404 UI 스타일링
+3.  `ErrorSimulator.js` — "use client" + useState로 에러 발생 로직
+4.  `error.js` 파일들 — error.message 표시 + reset() 연결
 
 ---
 

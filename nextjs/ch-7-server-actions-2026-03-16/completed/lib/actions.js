@@ -13,7 +13,7 @@ export async function getGuestbookEntries() {
     const entries = JSON.parse(data);
     // 최신 글이 위에 오도록 정렬
     return entries.sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
     );
   } catch (error) {
     console.error("방명록 데이터 읽기 실패:", error);
@@ -88,7 +88,7 @@ export async function deleteGuestbookEntry(formData) {
     await fs.writeFile(
       DATA_PATH,
       JSON.stringify(filteredEntries, null, 2),
-      "utf-8"
+      "utf-8",
     );
 
     revalidatePath("/");

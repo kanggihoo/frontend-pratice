@@ -1,13 +1,7 @@
 "use client";
 
 // ─── [클라이언트 컴포넌트 선언] ──────────────────────────
-// 이 컴포넌트는 검색 입력, 상태 관리, 이벤트 핸들러를 사용합니다.
-// ✅ "use client" 지시어가 파일 최상단에 선언되어 있습니다.
-
-
-// ─── [React 훅 임포트] ──────────────────────────────────
-// 힌트: import { useState, useEffect } from "react";
-
+// 이 컴포넌트는 검색 입력, 상태 관리, 이벤트 핸들러를 사용합니다
 
 import { useState, useEffect } from "react";
 
@@ -28,17 +22,14 @@ export default function RecipeSection() {
     setLoading(true);
     setError(null);
     try {
-      // ─── [URLSearchParams로 쿼리 구성] ──────────────
-      // 힌트: const params = new URLSearchParams({ limit: "6" });
-      // 힌트: if (query) params.set("q", query);
+      const params = new URLSearchParams({ limit: "6" });
+      if (query) params.set("q", query);
 
-
-      // ─── [Route Handler 호출] ──────────────────────
-      // 힌트: const res = await fetch(`/api/recipes?${params.toString()}`);
-      // 힌트: if (!res.ok) throw new Error("레시피를 불러오지 못했습니다.");
-      // 힌트: const json = await res.json();
-      // 힌트: setRecipes(json.data);
-
+      // 우리 Route Handler를 통해 외부 API에 접근합니다.
+      const res = await fetch(`/api/recipes?${params.toString()}`);
+      if (!res.ok) throw new Error("레시피를 불러오지 못했습니다.");
+      const json = await res.json();
+      setRecipes(json.data);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -48,7 +39,6 @@ export default function RecipeSection() {
 
   // ─── [검색어 변경 시 데이터 재로드] ────────────────────
   // searchQuery가 변경될 때마다 fetchRecipes를 호출합니다.
-  // 힌트: useEffect(() => { fetchRecipes(searchQuery); }, [searchQuery]);
   useEffect(() => {
     fetchRecipes(searchQuery);
   }, [searchQuery]);
@@ -58,6 +48,11 @@ export default function RecipeSection() {
   const handleSearch = (e) => {
     e.preventDefault();
     setSearchQuery(searchInput);
+  };
+  const difficultyColor = {
+    Easy: "bg-green-100 text-green-700",
+    Medium: "bg-yellow-100 text-yellow-700",
+    Hard: "bg-red-100 text-red-700",
   };
 
   return (
@@ -69,57 +64,88 @@ export default function RecipeSection() {
         </p>
       </div>
 
-      {/* ─── [검색 폼] ───────────────────────────────────── */}
-      {/* 힌트: onSubmit={handleSearch} */}
       <form onSubmit={handleSearch} className="flex gap-2 mb-6">
         <input
           type="text"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="레시피를 검색하세요 (예: pizza, pasta)"
-          className=""
+          className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm"
         />
-        {/* ─── [검색 버튼 스타일링] ──────────────────────── */}
-        {/* 힌트: bg-orange-500, text-white, rounded-lg, hover:bg-orange-600 */}
-        <button type="submit" disabled={loading} className="">
+        <button
+          type="submit"
+          disabled={loading}
+          className="px-5 py-2.5 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 disabled:opacity-50 transition-colors cursor-pointer"
+        >
           검색
         </button>
       </form>
 
       {error && (
-        <div className="">❌ {error}</div>
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+          ❌ {error}
+        </div>
       )}
 
-      {/* ─── [레시피 카드 렌더링] ─────────────────────────── */}
-      {/* loading, 결과 없음, 결과 있음 세 가지 상태를 처리하세요. */}
-      {/* 각 recipe 객체: { id, name, image, prepTimeMinutes, cookTimeMinutes, servings, difficulty, tags, rating } */}
       {loading ? (
-        <p className="text-gray-500">로딩 중...</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 animate-pulse"
+            >
+              <div className="h-40 bg-gray-200" />
+              <div className="p-4">
+                <div className="h-5 bg-gray-200 rounded w-3/4 mb-2" />
+                <div className="h-4 bg-gray-100 rounded w-1/2" />
+              </div>
+            </div>
+          ))}
+        </div>
       ) : recipes.length === 0 ? (
         <div className="text-center py-12 text-gray-500">
           <p className="text-lg">검색 결과가 없습니다.</p>
           <p className="text-sm mt-1">다른 키워드로 검색해보세요.</p>
         </div>
       ) : (
-        <div className="">
-          {/* ─── [레시피 카드] ────────────────────────────── */}
-          {/* 각 레시피를 카드로 표시하세요. 이미지, 이름, 조리시간, 인분, 평점을 포함합니다. */}
-          {/* 힌트: {recipes.map((recipe) => (
-            <div key={recipe.id} className="bg-white rounded-xl overflow-hidden shadow-sm border">
-              <img src={recipe.image} alt={recipe.name} className="w-full h-40 object-cover" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {recipes.map((recipe) => (
+            <div
+              key={recipe.id}
+              className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+            >
+              <div className="relative h-40">
+                <img
+                  src={recipe.image}
+                  alt={recipe.name}
+                  className="w-full h-full object-cover"
+                />
+                <span
+                  className={`absolute top-2 right-2 px-2 py-0.5 rounded-full text-xs font-medium ${difficultyColor[recipe.difficulty] || "bg-gray-100 text-gray-700"}`}
+                >
+                  {recipe.difficulty}
+                </span>
+              </div>
               <div className="p-4">
-                <h3 className="font-bold">{recipe.name}</h3>
-                <div className="flex gap-3 text-sm text-gray-500">
-                  <span>⏱ {recipe.prepTimeMinutes + recipe.cookTimeMinutes}분</span>
+                <h3 className="font-bold text-gray-900 mb-2">{recipe.name}</h3>
+                <div className="flex items-center gap-3 text-sm text-gray-500">
+                  <span>
+                    ⏱ {recipe.prepTimeMinutes + recipe.cookTimeMinutes}분
+                  </span>
                   <span>👥 {recipe.servings}인분</span>
                   <span>⭐ {recipe.rating}</span>
                 </div>
+                <div className="flex flex-wrap gap-1 mt-3">
+                  {recipe.tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))} */}
-          {recipes.map((recipe) => (
-            <div key={recipe.id}>
-              <p>{recipe.name}</p>
             </div>
           ))}
         </div>

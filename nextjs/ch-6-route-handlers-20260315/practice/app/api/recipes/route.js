@@ -2,10 +2,9 @@
 import { NextResponse } from "next/server";
 
 // ─── [환경변수 읽기] ──────────────────────────────────────
-// .env.local에서 RECIPES_API_URL, RECIPES_API_KEY를 가져오세요.
-// 힌트: const API_URL = process.env.RECIPES_API_URL;
-// 힌트: const API_KEY = process.env.RECIPES_API_KEY;
 
+const API_URL = process.env.RECIPES_API_URL;
+const API_KEY = process.env.RECIPES_API_KEY;
 
 /**
  * GET /api/recipes
@@ -21,67 +20,66 @@ export async function GET(request) {
   try {
     // ─── [쿼리 파라미터 추출] ────────────────────────────
     // request.nextUrl.searchParams에서 q(검색어)와 limit를 추출하세요.
-    // 힌트: const { searchParams } = request.nextUrl;
-    // 힌트: const query = searchParams.get("q") || "";
-    // 힌트: const limit = searchParams.get("limit") || "6";
 
+    const { searchParams } = request.nextUrl;
+    const query = searchParams.get("q") || "";
+    const limit = searchParams.get("limit") || "6";
 
     // ─── [조건부 API URL 구성] ───────────────────────────
     // 검색어(query)가 있으면 검색 API 엔드포인트를, 없으면 전체 목록 엔드포인트를 사용하세요.
     // DummyJSON 검색 API: ${API_URL}/search?q=검색어&limit=6
     // DummyJSON 전체 목록: ${API_URL}?limit=6
-    // 힌트: let apiUrl;
-    // 힌트: if (query) {
-    //   apiUrl = `${API_URL}/search?q=${encodeURIComponent(query)}&limit=${limit}`;
-    // } else {
-    //   apiUrl = `${API_URL}?limit=${limit}`;
-    // }
 
+    let apiUrl;
+    if (query) {
+      apiUrl = `${API_URL}/search?q=${encodeURIComponent(query)}`;
+    } else {
+      apiUrl = `${API_URL}?limit=${limit}`;
+    }
 
     // ─── [외부 API 호출] ────────────────────────────────
     // fetch()로 외부 API를 호출하세요. headers에 API Key를 포함합니다.
-    // 힌트: const res = await fetch(apiUrl, {
-    //   headers: { Authorization: `Bearer ${API_KEY}` },
-    //   next: { revalidate: 120 },
-    // });
+    const res = await fetch(apiUrl, {
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+      },
+      next: { revalidate: 120 },
+    });
 
-
-    // ─── [에러 처리] ────────────────────────────────────
-    // 힌트: if (!res.ok) {
-    //   return NextResponse.json(
-    //     { error: "레시피 데이터를 가져오는데 실패했습니다." },
-    //     { status: res.status }
-    //   );
-    // }
-
+    if (!res.ok) {
+      return NextResponse.json(
+        { error: "레시피 데이터를 가져오는데 실패했습니다." },
+        { status: res.status },
+      );
+    }
+    const data = await res.json();
 
     // ─── [데이터 가공 및 응답] ───────────────────────────
     // 외부 API 응답에서 필요한 필드만 추출하여 반환하세요.
-    // DummyJSON recipes 응답 구조:
-    // { recipes: [{ id, name, image, prepTimeMinutes, cookTimeMinutes, servings, difficulty, cuisine, tags, rating }], total }
-    // 힌트: const data = await res.json();
-    // 힌트: const recipes = data.recipes.map((recipe) => ({
-    //   id: recipe.id,
-    //   name: recipe.name,
-    //   image: recipe.image,
-    //   prepTimeMinutes: recipe.prepTimeMinutes,
-    //   cookTimeMinutes: recipe.cookTimeMinutes,
-    //   servings: recipe.servings,
-    //   difficulty: recipe.difficulty,
-    //   cuisine: recipe.cuisine,
-    //   tags: recipe.tags,
-    //   rating: recipe.rating,
-    // }));
-    // 힌트: return NextResponse.json({ success: true, data: recipes, total: data.total, query: query || null });
-
-
-    // 임시 응답 (위의 로직을 구현한 후 이 줄을 삭제하세요)
-    return NextResponse.json({ success: true, data: [], total: 0, query: null });
+    const recipes = data.recipes.map((recipe) => ({
+      id: recipe.id,
+      name: recipe.name,
+      image: recipe.image,
+      prepTimeMinutes: recipe.prepTimeMinutes,
+      cookTimeMinutes: recipe.cookTimeMinutes,
+      servings: recipe.servings,
+      difficulty: recipe.difficulty,
+      cuisine: recipe.cuisine,
+      tags: recipe.tags,
+      rating: recipe.rating,
+    }));
+    return NextResponse.json({
+      success: true,
+      data: recipes,
+      total: data.total,
+      query: query || null,
+    });
   } catch (error) {
     console.error("Recipes API Error:", error);
     return NextResponse.json(
       { error: "서버 오류가 발생했습니다." },
-      { status: 500 }
+
+      { status: 500 },
     );
   }
 }
