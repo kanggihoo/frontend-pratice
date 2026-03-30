@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /mnt/c/Users/SSAFY/Desktop/frontend-pratice/nextjs/ch-ts-7-server-action-20260330)",
+      "Bash(npx create-next-app@latest completed --typescript --tailwind --app --no-src-dir --import-alias \"@/*\" --no-turbopack --yes)",
+      "Bash(npx create-next-app@latest practice --typescript --tailwind --app --no-src-dir --import-alias \"@/*\" --no-turbopack --yes)",
+      "Bash(npm run:*)",
+      "Bash(mkdir -p /mnt/c/Users/SSAFY/Desktop/frontend-pratice/nextjs/ch-ts-9-metadata-image-20260330)"
+    ]
+  }
+}

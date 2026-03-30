@@ -228,8 +228,8 @@ trigger: manual
 - [x] 회차 4 — 동적 params 타입 (`Promise<{ id: string }>`), `generateStaticParams`
 - [x] 회차 5 — ErrorBoundary props 타입, 교차 타입(`&`)
 - [x] 회차 6 — `NextRequest`, `NextResponse<T>`, `import type`
-- [ ] 회차 7 — Server Action 타입, `FormData.get()` 타입 처리
-- [ ] 회차 8 — `revalidatePath`/`revalidateTag` 반환 타입, `Promise<void>`
+- [x] 회차 7 — Server Action 타입, `FormData.get()` 타입 처리
+- [x] 회차 8 — `revalidatePath`/`revalidateTag` 반환 타입, `Promise<void>`
 - [ ] 회차 9 — `Metadata`, `generateMetadata` 반환 타입
 - [ ] 회차 10 — Middleware 타입, 옵셔널 체이닝(`?.`)
 - [ ] 회차 11 — `useActionState<S, P>`, `useFormStatus` 제네릭 훅 타입
