@@ -9,28 +9,24 @@ import CartSummary from "./CartSummary";
 
 // ─── [서버 → 클라이언트 Props 타입] ───────────────────────────────
 // TODO: Product, CartItem을 lib/types.ts에서 import하세요.
-// import type { Product, CartItem } from "@/lib/types";
 
-// TODO: ProductPageClientProps interface를 정의하세요.
-// 힌트: products: Product[]
-// interface ProductPageClientProps {
-//   products: Product[];
-// }
+import type { Product, CartItem } from "@/lib/types";
+
+interface ProductPageClientProps {
+  products: Product[];
+}
 
 // TODO: Props에 타입 어노테이션을 추가하세요. (에러 발생 지점)
-// 힌트: { products }: ProductPageClientProps
-export default function ProductPageClient({ products }) {
+export default function ProductPageClient({
+  products,
+}: ProductPageClientProps) {
   // ─── [useState 제네릭 타입] ─────────────────────────────────────
-  // JavaScript: const [cartItems, setCartItems] = useState([]);
-  // TypeScript: useState<CartItem[]>([]) — 제네릭으로 상태 타입 명시
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   //
-  // TODO: useState에 제네릭 타입을 추가하세요.
-  // 힌트: useState<CartItem[]>([])
-  const [cartItems, setCartItems] = useState([]);
 
   // TODO: 함수 매개변수와 반환 타입에 어노테이션을 추가하세요.
   // 힌트: (productId: number, quantity: number): void => { ... }
-  const handleQuantityChange = (productId, quantity) => {
+  const handleQuantityChange = (productId: number, quantity: number): void => {
     const product = products.find((p) => p.id === productId);
     if (!product) return;
 
@@ -38,7 +34,7 @@ export default function ProductPageClient({ products }) {
       const existing = prev.find((item) => item.productId === productId);
       if (existing) {
         return prev.map((item) =>
-          item.productId === productId ? { ...item, quantity } : item
+          item.productId === productId ? { ...item, quantity } : item,
         );
       }
       return [
@@ -49,8 +45,7 @@ export default function ProductPageClient({ products }) {
   };
 
   // TODO: 반환 타입 void를 명시해보세요.
-  // 힌트: (): void => { ... }
-  const handleClear = () => {
+  const handleClear = (): void => {
     setCartItems([]);
   };
 

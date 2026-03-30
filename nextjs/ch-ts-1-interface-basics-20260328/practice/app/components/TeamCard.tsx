@@ -12,8 +12,12 @@
 
 // TODO: 1. import type { TeamMember } from '@/lib/types'; 를 추가하세요.
 // TODO: 2. TeamCardProps interface를 정의하세요.
-
-export default function TeamCard({ member }) { // ← 타입 없음 (에러 발생)
+import type { TeamMember } from "@/lib/types";
+interface TeamCardProps {
+  member: TeamMember;
+}
+export default function TeamCard({ member }: TeamCardProps) {
+  // ← 타입 없음 (에러 발생)
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6 flex flex-col gap-2 shadow-sm">
       <div className="w-14 h-14 rounded-full bg-indigo-100 flex items-center justify-center text-2xl font-bold text-indigo-600">

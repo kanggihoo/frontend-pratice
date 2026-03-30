@@ -21,6 +21,11 @@
 // TODO: BadgeProps를 import하세요.
 // import type { BadgeProps } from "@/lib/types";
 
+export interface BadgeProps {
+  label: string;
+  variant?: "default" | "success" | "warning" | "danger";
+}
+
 const variantStyles = {
   default: "bg-gray-100 text-gray-700",
   success: "bg-green-100 text-green-700",
@@ -30,7 +35,7 @@ const variantStyles = {
 
 // TODO: Props에 타입 어노테이션을 추가하세요. (에러 발생 지점)
 // 힌트: { label, variant = "default" }: BadgeProps
-export default function Badge({ label, variant = "default" }) {
+export default function Badge({ label, variant = "default" }: BadgeProps) {
   return (
     <span
       className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${variantStyles[variant]}`}

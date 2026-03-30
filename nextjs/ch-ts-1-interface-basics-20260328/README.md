@@ -22,6 +22,7 @@
 ### 1. Props 타입 정의
 
 **JavaScript**
+
 ```js
 // 타입 정보가 전혀 없음 — bar가 뭔지, 있어야 하는지 알 수 없음
 function Foo({ bar }) {
@@ -30,6 +31,7 @@ function Foo({ bar }) {
 ```
 
 **TypeScript**
+
 ```tsx
 // 1단계: interface로 Props 구조를 명시한다
 interface FooProps {
@@ -50,12 +52,14 @@ function Foo({ bar }: FooProps) {
 ### 2. 선택적 속성 `?`
 
 **JavaScript**
+
 ```js
 // subtitle가 있을 수도 없을 수도 — 코드를 읽기 전엔 모름
 function Card({ title, subtitle }) { ... }
 ```
 
 **TypeScript**
+
 ```tsx
 interface CardProps {
   title: string;    // 필수 — 없으면 에러
@@ -81,6 +85,7 @@ function Card({ title, subtitle }: CardProps) {
 ### 3. `children: React.ReactNode`
 
 **JavaScript**
+
 ```js
 // children을 받는다는 사실을 타입으로 알 수 없음
 function Layout({ children }) {
@@ -89,6 +94,7 @@ function Layout({ children }) {
 ```
 
 **TypeScript**
+
 ```tsx
 interface LayoutProps {
   children: React.ReactNode; // JSX, string, number, null, undefined 모두 허용
@@ -109,19 +115,33 @@ function Layout({ children }: LayoutProps) {
 | boolean | `false` (렌더링 안 됨) |
 | 위 타입들의 배열 | `[<div/>, <span/>]` |
 
+1. React.ReactNode란 무엇인가요?
+   React.ReactNode는 React가 화면에 그릴 수 있는(렌더링할 수 있는) 모든 것을 의미하는 가장 포괄적인 타입입니다.
+
+이 타입에는 다음과 같은 것들이 포함됩니다:
+
+JSX 요소: <div>, <MyComponent /> 등
+원시 타입: 문자열(string), 숫자(number), 불리언(boolean)
+특수 값: null, undefined (화면에 아무것도 안 나타남)
+Fragment: <>...</>
+배열: 위 항목들의 배열 (리스트 렌더링 시 사용)
+그래서 보통 layout.tsx나 고차 컴포넌트(HOC)에서 children 속성을 정의할 때 가장 많이 사용합니다. "어떤 형태의 자식이라도 다 받을 수 있다"는 뜻이죠.
+
 ---
 
 ### 4. `import type`
 
 **JavaScript**
+
 ```js
-import { companyInfo } from '@/data/mockData';
+import { companyInfo } from "@/data/mockData";
 ```
 
 **TypeScript**
+
 ```ts
 // 타입만 import할 때는 import type을 사용합니다
-import type { CompanyInfo } from '@/lib/types';
+import type { CompanyInfo } from "@/lib/types";
 // 런타임 번들에 포함되지 않아 번들 크기를 줄입니다
 ```
 
@@ -132,13 +152,15 @@ import type { CompanyInfo } from '@/lib/types';
 ### 5. 배열 타입
 
 **JavaScript**
+
 ```js
 function Timeline({ items }) { ... }
 ```
 
 **TypeScript**
+
 ```tsx
-import type { HistoryItem } from '@/lib/types';
+import type { HistoryItem } from "@/lib/types";
 
 interface TimelineProps {
   items: HistoryItem[]; // 방식 1: 더 간결 (권장)
@@ -274,9 +296,9 @@ cd practice && npm install && npm run dev
 ```json
 {
   "compilerOptions": {
-    "strict": true,          // 엄격한 타입 검사 — 타입 없으면 에러
+    "strict": true, // 엄격한 타입 검사 — 타입 없으면 에러
     "paths": {
-      "@/*": ["./*"]         // @/lib/types → ./lib/types로 해석
+      "@/*": ["./*"] // @/lib/types → ./lib/types로 해석
     }
   }
 }
@@ -292,11 +314,13 @@ cd practice && npm install && npm run dev
 타입을 모두 채운 후 추가로 도전해보세요:
 
 1. **`Readonly<T>` 적용**: Props를 읽기 전용으로 만들어보세요.
+
    ```tsx
    function TeamCard({ member }: Readonly<TeamCardProps>) { ... }
    ```
 
 2. **`data/mockData.ts`에 타입 명시**: `import type`으로 가져와 변수에 타입을 붙여보세요.
+
    ```ts
    import type { CompanyInfo } from '@/lib/types';
    export const companyInfo: CompanyInfo = { ... };

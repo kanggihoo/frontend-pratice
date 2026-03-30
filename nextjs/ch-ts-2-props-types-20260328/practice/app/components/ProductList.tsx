@@ -1,7 +1,10 @@
 // ─── [Props 타입 정의] ─────────────────────────────────────────────
-// TODO: ProductListProps를 import하세요.
-// import type { ProductListProps } from "@/lib/types";
 
+interface ProductListProps {
+  title: string;
+  headerAction?: React.ReactElement;
+  children: React.ReactNode;
+}
 // ─── [children: React.ReactNode] ──────────────────────────────────
 // JavaScript: function ProductList({ title, children }) { ... }
 // TypeScript: children의 타입을 명시해야 합니다.
@@ -19,7 +22,11 @@
 
 // TODO: Props에 타입 어노테이션을 추가하세요. (에러 발생 지점)
 // 힌트: { title, headerAction, children }: ProductListProps
-export default function ProductList({ title, headerAction, children }) {
+export default function ProductList({
+  title,
+  headerAction,
+  children,
+}: ProductListProps) {
   return (
     <section className="mb-8">
       <div className="mb-4 flex items-center justify-between">

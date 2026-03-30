@@ -2,7 +2,11 @@
 
 // ─── [Props 타입 정의] ─────────────────────────────────────────────
 // TODO: CartSummaryProps를 import하세요.
-// import type { CartSummaryProps } from "@/lib/types";
+import { CartItem } from "@/lib/types";
+export interface CartSummaryProps {
+  items: CartItem[];
+  onClear: () => void;
+}
 
 // ─── [Props 타입 분리 원칙] ───────────────────────────────────────
 // JavaScript: function CartSummary({ items, onClear }) { ... }
@@ -16,7 +20,7 @@
 
 // TODO: Props에 타입 어노테이션을 추가하세요. (에러 발생 지점)
 // 힌트: { items, onClear }: CartSummaryProps
-export default function CartSummary({ items, onClear }) {
+export default function CartSummary({ items, onClear }: CartSummaryProps) {
   if (items.length === 0) {
     return (
       <div className="rounded-xl border border-dashed border-gray-300 p-6 text-center text-gray-400">
@@ -25,7 +29,10 @@ export default function CartSummary({ items, onClear }) {
     );
   }
 
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">

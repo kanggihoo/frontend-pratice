@@ -1,7 +1,11 @@
 "use client";
 
 import { useState } from "react";
-
+interface QuantityControlProps {
+  productId: number;
+  stock: number;
+  onQuantityChange: (productId: number, quantity: number) => void;
+}
 // ─── [Props 타입 정의] ─────────────────────────────────────────────
 // TODO: QuantityControlProps를 import하세요.
 // import type { QuantityControlProps } from "@/lib/types";
@@ -18,22 +22,25 @@ import { useState } from "react";
 
 // TODO: Props에 타입 어노테이션을 추가하세요. (에러 발생 지점)
 // 힌트: { productId, stock, onQuantityChange }: QuantityControlProps
-export default function QuantityControl({ productId, stock, onQuantityChange }) {
+export default function QuantityControl({
+  productId,
+  stock,
+  onQuantityChange,
+}: QuantityControlProps) {
   // TODO: useState에 제네릭 타입을 추가하세요.
   // 힌트: useState<number>(1)
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState<number>(1);
 
   const isOutOfStock = stock === 0;
 
   // TODO: 반환 타입 void를 명시해보세요 (선택)
-  // 힌트: const handleDecrease = (): void => { ... }
-  const handleDecrease = () => {
+  const handleDecrease = (): void => {
     const next = Math.max(1, quantity - 1);
     setQuantity(next);
     onQuantityChange(productId, next);
   };
 
-  const handleIncrease = () => {
+  const handleIncrease = (): void => {
     const next = Math.min(stock, quantity + 1);
     setQuantity(next);
     onQuantityChange(productId, next);
@@ -41,7 +48,9 @@ export default function QuantityControl({ productId, stock, onQuantityChange }) 
 
   if (isOutOfStock) {
     return (
-      <p className="mt-3 text-center text-sm text-gray-400">품절된 상품입니다</p>
+      <p className="mt-3 text-center text-sm text-gray-400">
+        품절된 상품입니다
+      </p>
     );
   }
 

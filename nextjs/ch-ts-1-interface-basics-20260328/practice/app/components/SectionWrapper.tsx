@@ -21,15 +21,22 @@
 // }
 
 // TODO: SectionWrapperProps interface를 정의하세요.
-
-export default function SectionWrapper({ title, subtitle, children }) { // ← 타입 없음 (에러 발생)
+interface SectionWrapperProps {
+  title: string;
+  subtitle?: string;
+  children: React.ReactNode;
+}
+export default function SectionWrapper({
+  title,
+  subtitle,
+  children,
+}: SectionWrapperProps) {
+  // ← 타입 없음 (에러 발생)
   return (
     <section className="py-16 px-4 max-w-5xl mx-auto">
       <div className="mb-10 text-center">
         <h2 className="text-3xl font-bold text-gray-900">{title}</h2>
-        {subtitle && (
-          <p className="mt-3 text-lg text-gray-500">{subtitle}</p>
-        )}
+        {subtitle && <p className="mt-3 text-lg text-gray-500">{subtitle}</p>}
       </div>
       {children}
     </section>
