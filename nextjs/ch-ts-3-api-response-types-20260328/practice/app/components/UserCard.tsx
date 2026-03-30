@@ -1,25 +1,13 @@
 // ─── [Props 타입 정의] ─────────────────────────────────────────────────────────
 // JavaScript: function UserCard({ user }) { ... }
 // TypeScript: Props의 타입을 interface로 정의하고, 매개변수에 적용합니다.
-//
-// 1단계: lib/types.ts에서 User 타입을 import하세요.
-//   import type { User } from '@/lib/types';
-//   // import type: 런타임에 필요 없는 타입만 import (번들 최적화)
-//
-// 2단계: Props interface를 정의하세요.
-//   interface UserCardProps {
-//     user: User;
-//   }
-//
-// 3단계: 함수 매개변수에 타입을 적용하세요.
-//   export default function UserCard({ user }: UserCardProps) { ... }
+import type { User } from "@/lib/types";
+interface UserCardProps {
+  user: User;
+}
 
-// TODO: User 타입을 import하세요.
-
-// TODO: UserCardProps 인터페이스를 정의하세요.
-
-// TODO: Props에 타입 어노테이션을 추가하세요.
-export default function UserCard({ user }) {  // ← 타입 없음 (에러 발생)
+export default function UserCard({ user }: UserCardProps) {
+  // ← 타입 없음 (에러 발생)
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-2 shadow-sm hover:shadow-md transition-shadow">
       <div className="flex items-center gap-3">

@@ -12,15 +12,10 @@
 //   1. 제네릭 타입 파라미터 <T> (함수 이름 뒤)
 //   2. 반환 타입 Promise<T> (매개변수 목록 뒤)
 //
-// 힌트: async function fetchData<T>(url: string): Promise<T>
-//
-// 호출 예시:
-//   const users = await fetchData<User[]>('https://jsonplaceholder.typicode.com/users');
-//   //                             ^^^^^^ 여기서 T가 User[]로 결정됨
 
-// TODO: 타입 파라미터 <T>와 반환 타입 Promise<T>를 추가하세요.
-export async function fetchData(url) {  // ← 타입 없음 (에러 발생)
+export async function fetchData<T>(url: string): Promise<T> {
   const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
-  return res.json();
+
+  return res.json() as Promise<T>;
 }

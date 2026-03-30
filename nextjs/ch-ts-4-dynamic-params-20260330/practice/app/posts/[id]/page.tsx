@@ -16,9 +16,7 @@ import Link from "next/link";
 //     const { id } = await params;      // await 필수
 //   }
 //
-// 힌트:
-//   import type { PostDetailPageProps } from "@/lib/types";
-//   import type { Post, Comment } from "@/lib/types";
+import type { PostDetailPageProps, Post, Comment } from "@/lib/types";
 
 // ─── [generateStaticParams 반환 타입] ─────────────────────────────────────
 // generateStaticParams는 빌드 타임에 생성할 동적 경로 목록을 반환합니다.
@@ -37,10 +35,11 @@ import Link from "next/link";
 
 // TODO: generateStaticParams 함수에 반환 타입을 추가하고,
 //       post.id를 string으로 변환하는 코드를 작성하세요.
-export async function generateStaticParams() { // ← 반환 타입 없음
-  const posts = await fetch(
-    "https://jsonplaceholder.typicode.com/posts"
-  ).then((res) => res.json()); // ← 타입 없음
+export async function generateStaticParams(): Promise<{ id: string }[]> {
+  // ← 반환 타입 없음
+  const posts = await fetch("https://jsonplaceholder.typicode.com/posts").then(
+    (res) => res.json() as Promise<Post[]>,
+  ); // ← 타입 없음
 
   return posts.slice(0, 10).map((post) => ({
     id: String(post.id), // number → string 변환 (이 부분은 완성본에서 제공)
@@ -48,24 +47,24 @@ export async function generateStaticParams() { // ← 반환 타입 없음
 }
 
 // TODO: PostDetailPageProps를 import하고 아래 함수 매개변수에 타입을 추가하세요.
-export default async function PostDetailPage({ params, searchParams }) { // ← 타입 없음 (에러 발생)
+export default async function PostDetailPage({
+  params,
+  searchParams,
+}: PostDetailPageProps) {
+  // ← 타입 없음 (에러 발생)
   // ─── [params await] ────────────────────────────────────────────────────────
   // TODO: params를 await하여 id를 추출하세요.
   // Next.js 15+: params는 Promise이므로 await 없이 접근하면 에러!
   //
-  // 잘못된 방법 (Next.js 14 방식):
-  //   const { id } = params;     // ❌ TypeScript 에러 발생
-  //
-  // 올바른 방법 (Next.js 15+):
-  //   const { id } = await params; // ✅
-  const { id } = params; // ← 수정 필요 (await 추가)
+
+  const { id } = await params; // ← 수정 필요 (await 추가)
 
   // URL params는 항상 string → number가 필요하면 Number()로 변환
   const postId = Number(id);
 
   // ─── [searchParams await] ──────────────────────────────────────────────────
   // TODO: searchParams를 await하세요.
-  const resolvedSearch = searchParams; // ← 수정 필요 (await 추가)
+  const resolvedSearch = await searchParams; // ← 수정 필요 (await 추가)
   const showComments = resolvedSearch?.tab !== "info";
 
   // ─── [API 응답 타입 단언] ──────────────────────────────────────────────────
@@ -74,11 +73,11 @@ export default async function PostDetailPage({ params, searchParams }) { // ← 
   //       .then((res) => res.json() as Promise<Comment[]>)
   const [post, comments] = await Promise.all([
     fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`).then(
-      (res) => res.json() // ← 타입 없음
+      (res) => res.json() as Promise<Post>,
     ),
-    fetch(
-      `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
-    ).then((res) => res.json()), // ← 타입 없음
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`).then(
+      (res) => res.json() as Promise<Comment[]>,
+    ), // ← 타입 없음
   ]);
 
   return (
@@ -133,7 +132,9 @@ export default async function PostDetailPage({ params, searchParams }) { // ← 
               key={comment.id}
               className="bg-white rounded-lg border border-gray-200 p-4"
             >
-              <p className="font-medium text-sm text-gray-800">{comment.name}</p>
+              <p className="font-medium text-sm text-gray-800">
+                {comment.name}
+              </p>
               <p className="text-xs text-blue-500 mb-2">{comment.email}</p>
               <p className="text-sm text-gray-600">{comment.body}</p>
             </li>

@@ -12,23 +12,25 @@ import Link from "next/link";
 //
 // 힌트: import type { PostsPageProps } from "@/lib/types";
 //       import type { Post } from "@/lib/types";
-
+import type { PostsPageProps, Post } from "@/lib/types";
 // TODO: PostsPageProps를 import하고 아래 함수에 타입을 추가하세요.
-export default async function PostsPage({ searchParams }) { // ← 타입 없음 (에러 발생)
+export default async function PostsPage({ searchParams }: PostsPageProps) {
+  // ← 타입 없음 (에러 발생)
   // ─── [searchParams await] ──────────────────────────────────────────────────
   // TODO: searchParams를 await하여 resolvedParams에 담으세요.
   // Next.js 15+: searchParams는 Promise이므로 반드시 await 해야 합니다.
   // 힌트: const resolvedParams = await searchParams;
-  const resolvedParams = searchParams; // ← 수정 필요
+  const resolvedParams = await searchParams; // ← 수정 필요
 
-  const userId = resolvedParams?.userId ? Number(resolvedParams.userId) : undefined;
+  const userId = resolvedParams?.userId
+    ? Number(resolvedParams.userId)
+    : undefined;
 
   // ─── [API 응답 타입 단언] ──────────────────────────────────────────────────
   // TODO: fetch 응답에 타입을 추가하세요.
-  // 힌트: .then((res) => res.json() as Promise<Post[]>)
-  const posts = await fetch(
-    "https://jsonplaceholder.typicode.com/posts"
-  ).then((res) => res.json()); // ← 타입 없음
+  const posts = await fetch("https://jsonplaceholder.typicode.com/posts").then(
+    (res) => res.json() as Promise<Post[]>,
+  ); // ← 타입 없음
 
   const filtered = userId
     ? posts.filter((post) => post.userId === userId)

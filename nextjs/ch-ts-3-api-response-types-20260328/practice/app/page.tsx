@@ -1,12 +1,5 @@
-// ─── [API 응답 타입 import] ────────────────────────────────────────────────────
-// JavaScript: const data = await res.json();  // 타입을 모름
-// TypeScript: lib/types.ts에서 정의한 타입을 import해서 사용합니다.
-//
-// import type { User, Post, Todo } from '@/lib/types';
-// // import type: 타입만 import (런타임 번들에 포함되지 않음)
-
 // TODO: User, Post, Todo 타입을 import하세요.
-
+import type { User, Post, Todo } from "@/lib/types";
 import { fetchData } from "@/lib/utils";
 import UserCard from "@/app/components/UserCard";
 import StatsBar from "@/app/components/StatsBar";
@@ -35,9 +28,9 @@ export default async function DashboardPage() {
   // TODO: fetchData 호출에 올바른 제네릭 타입을 지정하세요.
   // hint: fetchData<User[]>(...), fetchData<Post[]>(...), fetchData<Todo[]>(...)
   const [users, posts, todos] = await Promise.all([
-    fetchData(`${BASE_URL}/users`),   // ← 제네릭 타입 없음 (에러 발생)
-    fetchData(`${BASE_URL}/posts`),   // ← 제네릭 타입 없음 (에러 발생)
-    fetchData(`${BASE_URL}/todos`),   // ← 제네릭 타입 없음 (에러 발생)
+    fetchData<User[]>(`${BASE_URL}/users`), // ← 제네릭 타입 없음 (에러 발생)
+    fetchData<Post[]>(`${BASE_URL}/posts`), // ← 제네릭 타입 없음 (에러 발생)
+    fetchData<Todo[]>(`${BASE_URL}/todos`), // ← 제네릭 타입 없음 (에러 발생)
   ]);
 
   return (
@@ -55,7 +48,9 @@ export default async function DashboardPage() {
       </section>
 
       <section>
-        <h2 className="text-base font-semibold text-gray-700 mb-4">유저 목록</h2>
+        <h2 className="text-base font-semibold text-gray-700 mb-4">
+          유저 목록
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* TODO: map 콜백의 user 파라미터에 User 타입을 명시하세요. */}
           {users.map((user) => (
