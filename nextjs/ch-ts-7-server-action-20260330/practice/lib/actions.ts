@@ -2,17 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import { guestbookEntries } from "@/data/guestbook";
+import type { ActionResult } from "@/lib/types";
 // TODO: ActionResult를 lib/types.ts에 정의한 후 import 주석을 해제하세요.
-// import type { ActionResult } from "@/lib/types";
 
 // ─── [Server Action: 방명록 추가] ──────────────────────────────────────────────
 //
-// JavaScript 버전:
-//   export async function addEntry(formData) {
-//     const name = formData.get("name");
-//     const message = formData.get("message");
-//     // ...
-//   }
 //
 // TypeScript 버전:
 //   - 매개변수: formData: FormData
@@ -50,7 +44,10 @@ import { guestbookEntries } from "@/data/guestbook";
 // 힌트: _prevState 앞의 _ 는 "이 변수를 사용하지 않는다"는 TypeScript 관례입니다.
 
 // TODO: 매개변수와 반환 타입을 추가하세요.
-export async function addEntry(_prevState, formData) {
+export async function addEntry(
+  _prevState: ActionResult | null,
+  formData: FormData,
+): Promise<ActionResult> {
   const name = formData.get("name");
   const message = formData.get("message");
 
@@ -88,7 +85,7 @@ export async function addEntry(_prevState, formData) {
 //   }
 
 // TODO: 매개변수와 반환 타입을 추가하세요.
-export async function deleteEntry(formData) {
+export async function deleteEntry(formData: FormData): Promise<void> {
   const id = formData.get("id") as string;
 
   const index = guestbookEntries.findIndex((entry) => entry.id === id);

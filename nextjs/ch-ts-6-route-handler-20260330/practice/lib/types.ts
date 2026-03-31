@@ -12,6 +12,24 @@
 //   ...
 // }
 
+export interface User {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+  website: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+  };
+  company: {
+    name: string;
+  };
+}
+
 // TODO: ApiResponse<T> 제네릭 인터페이스를 정의하세요.
 // 힌트: 제네릭 <T>를 사용하면 data 필드의 타입을 호출 시점에 결정할 수 있습니다.
 // interface ApiResponse<T> {
@@ -19,3 +37,10 @@
 //   data?: T;
 //   error?: string;
 // }
+
+export interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  count?: number;
+}

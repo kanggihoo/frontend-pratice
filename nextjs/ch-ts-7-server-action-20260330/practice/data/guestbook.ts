@@ -7,8 +7,8 @@
 //
 // 힌트: export const guestbookEntries: GuestbookEntry[] = [ ... ]
 // ─────────────────────────────────────────────────────────────────────────────
-
-export const guestbookEntries = [
+import type { GuestbookEntry } from "@/lib/types";
+export const guestbookEntries: GuestbookEntry[] = [
   {
     id: "1",
     name: "홍길동",

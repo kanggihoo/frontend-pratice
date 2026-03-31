@@ -17,38 +17,40 @@
 
 // TODO: import type을 사용하여 NextRequest를 import하세요.
 // TODO: ApiResponse, User 타입을 @/lib/types에서 import하세요.
-import { NextResponse } from 'next/server';
-
-export async function GET(request) {  // ← 타입 없음 (에러 발생)
+import { type NextRequest, NextResponse } from "next/server";
+import type { User, ApiResponse } from "@/lib/types";
+export async function GET(
+  request: NextRequest,
+): Promise<NextResponse<ApiResponse<User[]>>> {
   const { searchParams } = request.nextUrl;
   // TODO: searchParams.get()은 string | null을 반환합니다.
   //       ?? 연산자로 기본값을 설정하세요.
-  const limit = searchParams.get('limit');  // ← null 처리 필요
-  const search = searchParams.get('search');
+  const limit = searchParams.get("limit"); // ← null 처리 필요
+  const search = searchParams.get("search");
 
   try {
     const res = await fetch(
       `https://jsonplaceholder.typicode.com/users?_limit=${limit}`,
-      { cache: 'no-store' }
+      { cache: "no-store" },
     );
 
     if (!res.ok) {
       return NextResponse.json(
-        { success: false, error: 'Failed to fetch users from upstream' },
-        { status: res.status }
+        { success: false, error: "Failed to fetch users from upstream" },
+        { status: res.status },
       );
     }
 
     // TODO: res.json()의 반환 타입을 명시하세요.
     //       힌트: await res.json() as User[]
-    let users = await res.json();
+    let users = (await res.json()) as User[];
 
     if (search) {
       const query = search.toLowerCase();
       users = users.filter(
         (user) =>
           user.name.toLowerCase().includes(query) ||
-          user.email.toLowerCase().includes(query)
+          user.email.toLowerCase().includes(query),
       );
     }
 
@@ -59,8 +61,8 @@ export async function GET(request) {  // ← 타입 없음 (에러 발생)
     });
   } catch {
     return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+      { success: false, error: "Internal server error" },
+      { status: 500 },
     );
   }
 }

@@ -5,4 +5,9 @@
 
 // TODO: Post 인터페이스를 정의하세요.
 // JSONPlaceholder /posts 응답의 구조를 참고하세요.
-// interface Post { id: ...; userId: ...; title: ...; body: ...; }
+export interface Post {
+  id: number;
+  userId: number;
+  title: string;
+  body: string;
+}

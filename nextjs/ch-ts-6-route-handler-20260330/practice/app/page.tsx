@@ -13,18 +13,19 @@
 //   async function getUsers(): Promise<User[]> { ... }
 
 // TODO: User, ApiResponse 타입을 @/lib/types에서 import하세요.
-import UserCard from './components/UserCard';
-
+import UserCard from "./components/UserCard";
+import type { ApiResponse, User } from "@/lib/types";
 // TODO: 반환 타입 Promise<User[]>를 추가하세요.
-async function getUsers() {  // ← 반환 타입 없음
-  const res = await fetch('http://localhost:3000/api/users?limit=6', {
-    cache: 'no-store',
+async function getUsers(): Promise<User[]> {
+  // ← 반환 타입 없음
+  const res = await fetch("http://localhost:3000/api/users?limit=6", {
+    cache: "no-store",
   });
 
   if (!res.ok) return [];
 
   // TODO: res.json()에 ApiResponse<User[]> 타입을 명시하세요.
-  const json = await res.json();  // ← 타입 없음
+  const json = (await res.json()) as ApiResponse<User[]>;
   return json.data ?? [];
 }
 
@@ -36,7 +37,10 @@ export default async function Home() {
       <div className="max-w-5xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">유저 디렉토리</h1>
         <p className="text-gray-500 mb-8">
-          <code className="bg-gray-100 px-2 py-1 rounded text-sm">/api/users</code> Route Handler를 통해 가져온 데이터
+          <code className="bg-gray-100 px-2 py-1 rounded text-sm">
+            /api/users
+          </code>{" "}
+          Route Handler를 통해 가져온 데이터
         </p>
 
         {users.length === 0 ? (

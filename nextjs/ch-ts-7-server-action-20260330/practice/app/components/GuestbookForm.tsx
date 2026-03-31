@@ -23,14 +23,19 @@ import { addEntry } from "@/lib/actions";
 //   >(addEntry, null);
 //
 // 주의: ActionResult를 lib/types.ts에 먼저 정의해야 사용할 수 있습니다.
-
+import type { ActionResult } from "@/lib/types";
 export default function GuestbookForm() {
   // TODO: useActionState에 타입 파라미터를 추가하세요.
-  const [result, formAction, isPending] = useActionState(addEntry, null);
+  const [result, formAction, isPending] = useActionState<
+    ActionResult | null,
+    FormData
+  >(addEntry, null);
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">방명록 남기기</h2>
+      <h2 className="text-lg font-semibold text-gray-800 mb-4">
+        방명록 남기기
+      </h2>
 
       <form action={formAction} className="space-y-4">
         <div>

@@ -17,9 +17,12 @@ import { deleteEntry } from "@/lib/actions";
 //       GuestbookEntry 타입을 lib/types.ts에 먼저 정의해야 합니다.
 
 // TODO: GuestbookListProps 인터페이스를 정의하세요.
-
+import type { GuestbookEntry } from "@/lib/types";
+interface GuestbookListProps {
+  entries: GuestbookEntry[];
+}
 // TODO: 함수 매개변수에 타입 어노테이션을 추가하세요.
-export default function GuestbookList({ entries }) {
+export default function GuestbookList({ entries }: GuestbookListProps) {
   if (entries.length === 0) {
     return (
       <p className="text-center text-gray-400 py-8">
@@ -36,18 +39,11 @@ export default function GuestbookList({ entries }) {
     </ul>
   );
 }
-
-// ─── [GuestbookCard Props 타입] ────────────────────────────────────────────────
-//
-// 힌트:
-//   interface GuestbookCardProps {
-//     entry: GuestbookEntry;
-//   }
-
-// TODO: GuestbookCardProps 인터페이스를 정의하세요.
-
+interface GuestbookCardProps {
+  entry: GuestbookEntry;
+}
 // TODO: 함수 매개변수에 타입 어노테이션을 추가하세요.
-function GuestbookCard({ entry }) {
+function GuestbookCard({ entry }: GuestbookCardProps) {
   const formattedDate = new Date(entry.createdAt).toLocaleDateString("ko-KR", {
     year: "numeric",
     month: "long",

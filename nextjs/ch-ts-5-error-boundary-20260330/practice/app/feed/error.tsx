@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 // ─── [교차 타입 (Intersection Type)] ─────────────────────────────────
 // JavaScript: function Error({ error, reset }) { ... }
@@ -19,13 +19,19 @@
 
 // TODO: ErrorProps 타입을 정의하세요.
 // 힌트: error는 Error와 { digest?: string }의 교차 타입입니다.
-
+interface ErrorProps {
+  error: Error & { digest?: string };
+  reset: () => void;
+}
 // TODO: 함수 매개변수에 타입 어노테이션을 추가하세요.
-export default function Error({ error, reset }) {   // ← 타입 없음 (에러 발생)
+export default function Error({ error, reset }: ErrorProps) {
+  // ← 타입 없음 (에러 발생)
   return (
     <main className="max-w-2xl mx-auto py-12 px-4">
       <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-        <h2 className="text-xl font-bold text-red-700 mb-2">오류가 발생했습니다</h2>
+        <h2 className="text-xl font-bold text-red-700 mb-2">
+          오류가 발생했습니다
+        </h2>
         <p className="text-red-600 mb-1">{error.message}</p>
         {error.digest && (
           <p className="text-xs text-red-400 mb-4">에러 ID: {error.digest}</p>
